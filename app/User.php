@@ -11,7 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'noHp', 'alamat', 'username'
+        'name', 'email', 'password', 'noHp', 'alamat', 'username', 'kecamatan_id'
     ];
 
     protected $hidden = [
@@ -30,5 +30,10 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->count() == 1;
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Kecamatan;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,6 +20,13 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'kecamatan' => Kecamatan::get()
+        ]);
     }
 
     protected function validator(array $data)
@@ -38,6 +47,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'username' => $data['username'],
+            'kecamatan_id' => $data['kecamatan'],
             'noHp' => $data['noHp'],
             'alamat' => $data['alamat'],
             'email' => $data['email'],

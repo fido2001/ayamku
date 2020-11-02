@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSomeFieldToUsers extends Migration
+class CreateKecamatansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddSomeFieldToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username', 30)->after('name');
-            $table->string('noHp', 13)->after('email');
-            $table->text('alamat')->after('email_verified_at');
+        Schema::create('kecamatan', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kecamatan');
+            $table->string('slug');
+            $table->timestamps();
         });
     }
 
@@ -27,7 +28,6 @@ class AddSomeFieldToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-        });
+        Schema::dropIfExists('kecamatans');
     }
 }
