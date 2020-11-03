@@ -31,15 +31,37 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'username' => ['required', 'alpha_num', 'max:25'],
-            'noHp' => ['required', 'string', 'max:13', 'min:10'],
-            'alamat' => ['required'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required']
-        ]);
+        return Validator::make(
+            $data,
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'alpha_num', 'max:25'],
+                'noHp' => ['required', 'string', 'max:13', 'min:10'],
+                'alamat' => ['required'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'role' => ['required'],
+                'kecamatan' => ['required']
+            ],
+            [
+                'name.string' => 'Nama Lengkap Harus berupa huruf',
+                'name.required' => 'Data tidak boleh kosong, harap diisi',
+                'username.required' => 'Data tidak boleh kosong, harap diisi',
+                'noHp.required' => 'Data tidak boleh kosong, harap diisi',
+                'alamat.required' => 'Data tidak boleh kosong, harap diisi',
+                'email.required' => 'Data tidak boleh kosong, harap diisi',
+                'password.required' => 'Data tidak boleh kosong, harap diisi',
+                'role.required' => 'Data tidak boleh kosong, harap diisi',
+                'kecamatan.required' => 'Data tidak boleh kosong, harap diisi',
+                'password.min' => 'Minimal 8 karakter',
+                'password.confirmed' => 'Masukkan konfirmasi password yang valid',
+                'email.email' => 'Masukkan Email yang valid.',
+                'email.unique' => 'Email sudah digunakan, silakan ganti.',
+                'username.max' => 'Maksimal 25 karakter',
+                'username.alpha_num' => 'Hanya bisa diisi dengan karakter alpha numeric',
+            ]
+        );
     }
 
     protected function create(array $data)

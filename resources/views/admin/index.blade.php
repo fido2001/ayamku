@@ -1,23 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Halaman Admin</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    Login sebagai Admin!
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="section-body">
+    <div class="alert alert-success">Selamat datang, {{ Auth::user()->name }}. Ini adalah halaman Dashboard Admin</div>
 </div>
 @endsection

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-<title>Daftar Ayam-Ku</title>
+<title>Daftar | Ayam-Ku</title>
 
 <!-- General CSS Files -->
 <link rel="stylesheet" href="{{ asset('../assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -45,36 +45,56 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="name">Nama Lengkap</label>
-                                            <input id="name" type="text" class="form-control" name="name" autofocus>
+                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autofocus>
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="username">Username</label>
-                                            <input id="username" type="text" class="form-control" name="username">
+                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" name="username">
+                                            @error('username')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="email">Email</label>
-                                            <input id="email" type="email" class="form-control" name="email">
+                                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
                                             <div class="invalid-feedback">
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="kecamatan">Kecamatan</label>
-                                            <select name="kecamatan" id="kecamatan" class="form-control">
+                                            <select name="kecamatan" id="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror">
                                                 <option disabled selected>Pilih Salah Satu</option>
                                                 @foreach ($kecamatan as $kcm)
                                                     <option value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('kecamatan')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="password" class="d-block">Password</label>
-                                            <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                                            <input id="password" type="password" class="form-control pwstrength @error('password') is-invalid @enderror" data-indicator="pwindicator" name="password">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             <div id="pwindicator" class="pwindicator">
                                             <div class="bar"></div>
                                             <div class="label"></div>
@@ -89,7 +109,12 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="noHp" class="d-block">Nomor HP</label>
-                                            <input id="noHp" type="text" class="form-control" name="noHp">
+                                            <input id="noHp" type="text" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ old('noHp') }}">
+                                            @error('noHp')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="role" class="d-block mb-3">Pilih Role Anda</label>
@@ -105,12 +130,24 @@ gtag('config', 'UA-94034622-3');
                                                     Distributor
                                                 </label>
                                             </div>
+                                            <div>
+                                                @error('role')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label for="alamat" class="d-block">Alamat</label>
-                                            <textarea id="alamat" type="text" class="form-control" name="alamat"></textarea>
+                                            <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat">{{ old('alamat') }}</textarea>
+                                            @error('alamat')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
 
