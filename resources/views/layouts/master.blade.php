@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ asset('../assets/modules/fontawesome/css/all.min.css') }}">
 
 <!-- CSS Libraries -->
+@yield('css')
 
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{ asset('../assets/css/style.css') }}">
@@ -229,12 +230,15 @@ gtag('config', 'UA-94034622-3');
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-title">Logged in 5 min ago</div>
-                    {{-- <a href="@if (Request::segment(1) == 'petshop')
-                                {{ route('edit.profile.petshop') }}
-                            @else
-                            {{ route('edit.profile.admin') }} @endif" class="dropdown-item has-icon">
+                    <a href="@if (Request::segment(1) == 'admin')
+                                {{ route('profile.Admin') }}
+                            @elseif (Request::segment(1) == 'peternak')
+                                {{ route('profile.Peternak') }}
+                            @elseif (Request::segment(1) == 'distributor')
+                                {{ route('profile.Distributor') }}    
+                            @endif" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
-                    </a> --}}
+                    </a>
                     <a href="features-activities.html" class="dropdown-item has-icon">
                         <i class="fas fa-bolt"></i> Activities
                     </a>
