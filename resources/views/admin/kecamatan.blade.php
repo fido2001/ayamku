@@ -51,10 +51,10 @@
                 </tbody>
             </table>
         </div>
-        </div>
     </div>
+</div>
     @section('modal')
-        <!-- Modal Tambah Data Pet Kecamatan-->
+        <!-- Modal Tambah Data Kecamatan-->
         <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

@@ -6,6 +6,7 @@ use App\Kecamatan;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -35,6 +36,39 @@ class UserController extends Controller
         $attr['kecamatan_id'] = request('kecamatan');
         $user->update($attr);
         return back();
+    }
+
+    public function editPassword()
+    {
+        return view('password.password-edit');
+    }
+
+    public function updatePassword()
+    {
+        request()->validate(
+            [
+                'old_password' => 'required',
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'old_password.required' => 'Data tidak boleh kosong, harap diisi',
+                'password.required' => 'Data tidak boleh kosong, harap diisi',
+                'password.min' => 'Minimal 8 Karakter',
+                'password.confirmed' => 'Masukkan konfirmasi password yang valid',
+            ]
+        );
+
+        $currentPassword = auth()->user()->password;
+        $oldPassword = request('old_password');
+
+        if (Hash::check($oldPassword, $currentPassword)) {
+            auth()->user()->update([
+                'password' => bcrypt(request('password'))
+            ]);
+            return back()->with('success', 'Ganti password berhasil.');
+        } else {
+            return back()->withErrors(['old_password' => 'Masukkan password anda yang sekarang.']);
+        }
     }
 
     protected function validator(Request $request)

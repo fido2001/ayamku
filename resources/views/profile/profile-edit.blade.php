@@ -65,7 +65,13 @@
                         </select>
                     </div>
                 </div>
-                <a href="" class="text-danger">Ganti Password</a>
+                <a href="@if (Request::segment(1) == 'admin')
+                            {{ route('edit.password.Admin') }}
+                        @elseif (Request::segment(1) == 'peternak')
+                            {{ route('edit.password.Peternak') }}
+                        @elseif (Request::segment(1) == 'distributor')
+                            {{ route('edit.password.Distributor') }}    
+                        @endif" class="text-danger">Ganti Password</a>
             </div>
             <div class="card-footer text-right">
             <button type="submit" class="btn btn-primary">Simpan</button>

@@ -21,7 +21,20 @@
                     </ul>
                 </li>
             @endif
-            <li class="menu-header">Pages</li>
+            @if (Request::segment(1) == 'admin')
+                <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'artikel') active @endif">
+                    <a href="{{ route('artikel.index') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Artikel</span></a>
+                </li>
+            @elseif (Request::segment(1) == 'peternak')
+                <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'artikel') active @endif">
+                    <a href="{{ route('artikel.index.peternak') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Artikel</span></a>
+                </li>
+            @endif
+            @if (Request::segment(1) == 'peternak')
+                <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'kandang') active @endif">
+                    <a href="{{ route('kandang.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Kandang</span></a>
+                </li>
+            @endif
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
                 <ul class="dropdown-menu">
