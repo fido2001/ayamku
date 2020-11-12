@@ -20,14 +20,14 @@
                         <label>Nama Lengkap</label>
                         <input type="text" class="form-control" name="name" value="{{ $user->name }}" required="">
                         <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi
+                            Data tidak boleh kosong, harap diisi!
                         </div>
                     </div>
                     <div class="form-group col-md-6 col-12">
                         <label>Username</label>
                         <input type="text" class="form-control" name="username" value="{{ $user->username }}" required="">
                         <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi
+                            Data tidak boleh kosong, harap diisi!
                         </div>
                     </div>
                 </div>
@@ -36,14 +36,14 @@
                     <label>Email</label>
                     <input type="email" class="form-control" name="email" value="{{ $user->email }}" required="">
                     <div class="invalid-feedback">
-                        Data tidak boleh kosong, harap diisi
+                        Data tidak boleh kosong, harap diisi!
                     </div>
                 </div>
                 <div class="form-group col-md-6 col-12">
                     <label>Nomor HP</label>
                     <input type="tel" class="form-control" name="noHp" value="{{ $user->noHp }}">
                     <div class="invalid-feedback">
-                        Data tidak boleh kosong, harap diisi
+                        Data tidak boleh kosong, harap diisi!
                     </div>
                 </div>
                 </div>
@@ -52,7 +52,7 @@
                         <label>Alamat</label>
                         <textarea name="alamat" class="form-control summernote-simple">{{ $user->alamat }}</textarea>
                         <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi
+                            Data tidak boleh kosong, harap diisi!
                         </div>
                     </div>
                     <div class="form-group col-md-6 col-12">
@@ -74,7 +74,14 @@
                         @endif" class="text-danger">Ganti Password</a>
             </div>
             <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="@if (Request::segment(1) == 'admin')
+                            {{ route('profile.Admin') }}
+                        @elseif (Request::segment(1) == 'peternak')
+                            {{ route('profile.Peternak') }}
+                        @elseif (Request::segment(1) == 'distributor')
+                            {{ route('profile.Distributor') }}    
+                        @endif" class="btn btn-danger">Batal</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

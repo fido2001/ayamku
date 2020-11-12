@@ -39,12 +39,13 @@
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                             <div class="col-sm-12 col-md-7">
                                 <button class="btn btn-primary" type="submit">Simpan</button>
+                                <a href="{{ route('artikel.index') }}" class="btn btn-danger">Batal</a>
                             </div>
                         </div>
                     </form>
                             <div class="flex mt-3">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal">
                                     Hapus Artikel Ini
                                 </button>
                             </div>

@@ -79,7 +79,7 @@
                                         <label>
                                             Kode Kandang
                                         </label>
-                                        <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('nama_kecamatan') is-invalid @enderror" autocomplete="off">
+                                        <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('kode') is-invalid @enderror" autocomplete="off">
                                         @error('kode')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
                                         <label for="panjang">
                                             Panjang Kandang
                                         </label>
-                                        <input type="number" id="panjang" name="panjang" value="{{ old('panjang') }}" class="input form-control @error('nama_kecamatan') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" id="panjang" name="panjang" value="{{ old('panjang') }}" class="input form-control @error('panjang') is-invalid @enderror" autocomplete="off">
                                         @error('panjang')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -105,7 +105,7 @@
                                         <label for="lebar">
                                             Lebar Kandang
                                         </label>
-                                        <input type="number" id="lebar" name="lebar" value="{{ old('lebar') }}" class="input form-control @error('nama_kecamatan') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" id="lebar" name="lebar" value="{{ old('lebar') }}" class="input form-control @error('lebar') is-invalid @enderror" autocomplete="off">
                                         @error('lebar')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -124,7 +124,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>
-                                            Jumlah Ternak
+                                            Jumlah Bibit Ternak
                                         </label>
                                         <input type="number" name="jumlahBibit" value="{{ old('jumlahBibit') }}" class="form-control @error('jumlahBibit') is-invalid @enderror" autocomplete="off">
                                         @error('jumlahBibit')

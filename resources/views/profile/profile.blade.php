@@ -124,7 +124,7 @@
                             {{ route('edit.profile.Peternak') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('edit.profile.Distributor') }}    
-                        @endif" class="btn btn-secondary">Edit Profil</a>
+                        @endif" class="btn btn-secondary">Ubah Profil</a>
                 </div>
             </div>
             <div class="row">
@@ -132,62 +132,62 @@
                 <div class="col-md-6">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Username</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->username }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Nama Lengkap</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->name }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->email }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Alamat</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->alamat }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Nomor HP</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->noHp }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Kecamatan</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ $user->kecamatan->nama_kecamatan }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Role</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray())  }}</p>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Username</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->username }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nama Lengkap</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->name }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->email }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Alamat</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->alamat }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nomor HP</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->noHp }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Kecamatan</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ $user->kecamatan->nama_kecamatan }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Akun</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray())  }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

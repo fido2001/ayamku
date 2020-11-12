@@ -14,6 +14,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Admin');
     Route::get('/editPassword', 'UserController@editPassword')->name('edit.password.Admin');
     Route::patch('/editPassword', 'UserController@updatePassword')->name('edit.password.Admin');
+    Route::get('/dataAkun', 'AdminController@dataAkun')->name('admin.akun');
 });
 
 Route::prefix('peternak')->middleware('auth')->group(function () {

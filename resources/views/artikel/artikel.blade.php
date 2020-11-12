@@ -50,6 +50,9 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(Request::segment(1) == 'admin')
+                            <a href="{{ route('artikel.edit.admin', $art->slug) }}" class="btn btn-warning float-right">Ubah Artikel</a>
+                            @endif
                         </div>
                     </div>
                 </article>
@@ -57,7 +60,7 @@
             @empty
             <div class="col-md-6">
                 <div class="alert alert-info">
-                    There are no Posts.
+                    Belum ada artikel.
                 </div>
             </div>
         @endforelse

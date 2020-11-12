@@ -36,6 +36,21 @@ class KandangController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate(
+            [
+                'kode' => ['required'],
+                'panjang' => ['required'],
+                'lebar' => ['required'],
+                'jumlahBibit' => ['required']
+            ],
+            [
+                'kode.required' => 'Data tidak boleh kosong, harap diisi!',
+                'panjang.required' => 'Data tidak boleh kosong, harap diisi!',
+                'lebar.required' => 'Data tidak boleh kosong, harap diisi!',
+                'jumlahBibit.required' => 'Data tidak boleh kosong, harap diisi!',
+            ]
+        );
+
         $attr = $request->all();
 
         auth()->user()->kandang()->create($attr);

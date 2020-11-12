@@ -37,7 +37,7 @@ gtag('config', 'UA-94034622-3');
                         </div>
 
                         <div class="card card-primary">
-                            <div class="card-header"><h4>Daftar</h4></div>
+                            <div class="card-header"><h4>Registrasi</h4></div>
 
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
@@ -67,8 +67,11 @@ gtag('config', 'UA-94034622-3');
                                         <div class="form-group col-6">
                                             <label for="email">Email</label>
                                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-                                            <div class="invalid-feedback">
-                                            </div>
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="kecamatan">Kecamatan</label>
@@ -117,7 +120,7 @@ gtag('config', 'UA-94034622-3');
                                             @enderror
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="role" class="d-block mb-3">Pilih Role Anda</label>
+                                            <label for="role" class="d-block mb-3">Pilih Akun Anda</label>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="role[]" id="exampleRadios1" value="2" checked>
                                                 <label class="form-check-label" for="exampleRadios1">
@@ -153,8 +156,11 @@ gtag('config', 'UA-94034622-3');
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-info btn-lg btn-block">
-                                            Register
+                                            Simpan
                                         </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{{ route('login') }}" class="btn btn-danger btn-lg btn-block">Batal</a>
                                     </div>
                                 </form>
                             </div>

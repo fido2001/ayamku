@@ -81,7 +81,7 @@
                     </form>
                 </div>
                 <div class="mt-1 text-muted text-center mb-5">
-                    Belum Punya Akun? <a href="{{ route('register') }}">Daftar</a>
+                    Belum Punya Akun? <a href="{{ route('register') }}">Registrasi</a>
                 </div>
             </div>
             </div>
