@@ -9,11 +9,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('artikel/{artikel:slug}', 'ArtikelController@destroy')->name('artikel.destroy.admin');
     Route::get('artikel/{artikel:slug}', 'ArtikelController@edit')->name('artikel.edit.admin');
     Route::patch('artikel/{artikel:slug}', 'ArtikelController@update')->name('artikel.update.admin');
-    Route::get('/myProfile', 'UserController@myProfile')->name('profile.Admin');
-    Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.Admin');
-    Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Admin');
-    Route::get('/editPassword', 'UserController@editPassword')->name('edit.password.Admin');
-    Route::patch('/editPassword', 'UserController@updatePassword')->name('edit.password.Admin');
     Route::get('/dataAkun', 'AdminController@dataAkun')->name('admin.akun');
 });
 

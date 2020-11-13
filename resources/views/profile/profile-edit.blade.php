@@ -2,9 +2,7 @@
 
 @section('content')
     <div class="card">
-        <form method="post" action="@if (Request::fullUrl() == 'http://127.0.0.1:8000/admin/myProfile')
-                {{ route('edit.profile.Admin', $user) }}
-                @elseif (Request::fullUrl() == 'http://127.0.0.1:8000/peternak/myProfile')
+        <form method="post" action="@if (Request::fullUrl() == 'http://127.0.0.1:8000/peternak/myProfile')
                     {{ route('edit.profile.Peternak', $user) }}
                 @elseif (Request::fullUrl() == 'http://127.0.0.1:8000/distributor/myProfile')
                     {{ route('edit.profile.Distributor', $user) }}    
@@ -65,18 +63,14 @@
                         </select>
                     </div>
                 </div>
-                <a href="@if (Request::segment(1) == 'admin')
-                            {{ route('edit.password.Admin') }}
-                        @elseif (Request::segment(1) == 'peternak')
+                <a href="@if (Request::segment(1) == 'peternak')
                             {{ route('edit.password.Peternak') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('edit.password.Distributor') }}    
                         @endif" class="text-danger">Ganti Password</a>
             </div>
             <div class="card-footer text-right">
-                <a href="@if (Request::segment(1) == 'admin')
-                            {{ route('profile.Admin') }}
-                        @elseif (Request::segment(1) == 'peternak')
+                <a href="@if (Request::segment(1) == 'peternak')
                             {{ route('profile.Peternak') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('profile.Distributor') }}    

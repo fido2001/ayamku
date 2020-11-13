@@ -122,13 +122,13 @@ gtag('config', 'UA-94034622-3');
                                         <div class="form-group col-6">
                                             <label for="role" class="d-block mb-3">Pilih Akun Anda</label>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="role[]" id="exampleRadios1" value="2" checked>
+                                                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="2" checked>
                                                 <label class="form-check-label" for="exampleRadios1">
                                                     Peternak
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="role[]" id="exampleRadios2" value="3">
+                                                <input class="form-check-input" type="radio" name="role" id="exampleRadios2" value="3">
                                                 <label class="form-check-label" for="exampleRadios2">
                                                     Distributor
                                                 </label>
