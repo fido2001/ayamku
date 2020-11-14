@@ -185,7 +185,7 @@
                                     <label>Akun</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray())  }}</p>
+                                    <p>{{ implode(', ', $user->role()->get()->pluck('name')->toArray())  }}</p>
                                 </div>
                             </div>
                         </div>

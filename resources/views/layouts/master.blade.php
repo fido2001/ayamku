@@ -246,10 +246,14 @@ gtag('config', 'UA-94034622-3');
                         <i class="fas fa-cog"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                    <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
+                    onclick="confirm('Anda yakin ingin keluar?'); event.preventDefault(); 
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                        <i class="fas fa-sign-out-alt"></i>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
