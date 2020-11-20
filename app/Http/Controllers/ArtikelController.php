@@ -38,6 +38,8 @@ class ArtikelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'title' => 'required',
+            'body' => 'required',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
         $attr = $request->all();

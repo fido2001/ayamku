@@ -13,11 +13,15 @@
             </li>
             <li class="menu-header">FITUR</li>
             @if (Request::segment(1)=='admin')
-                <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan') active @endif">
+                <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'vitamin') active @endif">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i><span>Master Data</span></a>
                     <ul class="dropdown-menu">
                         <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan')
                         active @endif"><a class="nav-link" href="{{ route('kecamatan.index') }}">Data Kecamatan</a></li>
+                    </ul>
+                    <ul class="dropdown-menu">
+                        <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'vitamin')
+                        active @endif"><a class="nav-link" href="{{ route('vitamin.index') }}">Data Vitamin</a></li>
                     </ul>
                 </li>
             @endif

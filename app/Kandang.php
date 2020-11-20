@@ -13,4 +13,9 @@ class Kandang extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'id_kandang');
+    }
 }

@@ -36,7 +36,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->username }}</td>
                             <td>{{ implode(', ', $user->kecamatan()->get()->pluck('nama_kecamatan')->toArray())  }}</td>
-                            <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray())  }}</td>
+                            <td>{{ implode(', ', $user->role()->get()->pluck('name')->toArray())  }}</td>
                         </tr>
                     @endforeach
                     </tbody>
