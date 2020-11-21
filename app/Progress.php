@@ -18,4 +18,9 @@ class Progress extends Model
     {
         return $this->belongsTo(Kandang::class, 'id_kandang');
     }
+
+    public function panen()
+    {
+        return $this->hasMany(Panen::class, 'id_progress');
+    }
 }

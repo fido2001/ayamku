@@ -14,7 +14,8 @@ class KandangController extends Controller
      */
     public function index()
     {
-        $kandang = Kandang::get();
+        $user_id = auth()->user()->id;
+        $kandang = Kandang::where('user_id', $user_id)->get();
         return view('peternak.kandang', ['kandang' => $kandang]);
     }
 

@@ -7,6 +7,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('artikel', 'ArtikelController');
     Route::resource('kecamatan', 'KecamatanController');
     Route::resource('vitamin', 'VitaminController');
+    Route::resource('kategori', 'KategoriController');
     Route::delete('artikel/{artikel:slug}', 'ArtikelController@destroy')->name('artikel.destroy.admin');
     Route::get('artikel/{artikel:slug}', 'ArtikelController@edit')->name('artikel.edit.admin');
     Route::patch('artikel/{artikel:slug}', 'ArtikelController@update')->name('artikel.update.admin');
@@ -19,6 +20,7 @@ Route::prefix('peternak')->middleware('auth')->group(function () {
     Route::get('artikel/{artikel:slug}', 'ArtikelController@show')->name('artikel.show.peternak');
     Route::resource('kandang', 'KandangController');
     Route::resource('progress', 'ProgressController');
+    Route::resource('panen', 'PanenController');
     Route::get('/myProfile', 'UserController@myProfile')->name('profile.Peternak');
     Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.Peternak');
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Peternak');

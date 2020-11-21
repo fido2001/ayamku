@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Vitamin;
+use App\Kategori;
 use Illuminate\Http\Request;
 
-class VitaminController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class VitaminController extends Controller
      */
     public function index()
     {
-        $vitamin = Vitamin::get();
-        return view('admin.vitamin', ['dataVitamin' => $vitamin]);
+        $kategori = Kategori::get();
+        return view('admin.kategori', compact('kategori'));
     }
 
     /**
@@ -37,7 +37,7 @@ class VitaminController extends Controller
     public function store(Request $request)
     {
         $this->_validation($request);
-        Vitamin::create($request->all());
+        Kategori::create($request->all());
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
     }
 
@@ -58,9 +58,9 @@ class VitaminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vitamin $vitamin)
+    public function edit(Kategori $kategori)
     {
-        return view('admin.vitamin-edit', compact('vitamin'));
+        return view('admin.kategori-edit', compact('kategori'));
     }
 
     /**
@@ -73,13 +73,11 @@ class VitaminController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation($request);
-        Vitamin::where('id', $id)->update([
-            'jenis_vitamin' => $request->jenis_vitamin,
-            'takaran' => $request->takaran,
-            'syarat' => $request->syarat
+        Kategori::where('id', $id)->update([
+            'bobot' => $request->bobot
         ]);
 
-        return redirect()->route('vitamin.index')->with('success', 'Data Berhasil Disimpan');
+        return redirect()->route('kategori.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -90,28 +88,20 @@ class VitaminController extends Controller
      */
     public function destroy($id)
     {
-        Vitamin::destroy($id);
-        return redirect()->route('vitamin.index')->with('success', 'Data Berhasil Dihapus');
+        Kategori::destroy($id);
+        return redirect()->route('kategori.index')->with('success', 'Data Berhasil Dihapus');
     }
 
     private function _validation(Request $request)
     {
         $validation = $request->validate(
             [
-                'jenis_vitamin' => 'required|max:50|min:3',
-                'takaran' => 'required|max:50|min:3',
-                'syarat' => 'required|max:50|min:3'
+                'bobot' => 'required|max:30|min:3',
             ],
             [
-                'jenis_vitamin.required' => 'Data tidak boleh kosong, harap diisi',
-                'jenis_vitamin.max' => 'Jenis Vitamin tidak boleh melebihi 50 karakter',
-                'jenis_vitamin.min' => 'Jenis Vitamin minimal 3 karakter',
-                'takaran.required' => 'Data tidak boleh kosong, harap diisi',
-                'takaran.max' => 'Takaran tidak boleh melebihi 50 karakter',
-                'takaran.min' => 'Takaran minimal 3 karakter',
-                'syarat.required' => 'Data tidak boleh kosong, harap diisi',
-                'syarat.max' => 'Syarat tidak boleh melebihi 50 karakter',
-                'syarat.min' => 'Syarat minimal 3 karakter'
+                'bobot.required' => 'Data tidak boleh kosong, harap diisi',
+                'bobot.max' => 'Data tidak boleh melebihi 30 karakter',
+                'bobot.min' => 'Data minimal 3 karakter',
             ]
         );
     }

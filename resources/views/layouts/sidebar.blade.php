@@ -13,7 +13,7 @@
             </li>
             <li class="menu-header">FITUR</li>
             @if (Request::segment(1)=='admin')
-                <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'vitamin') active @endif">
+                <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'vitamin') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'kategori') active @endif">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i><span>Master Data</span></a>
                     <ul class="dropdown-menu">
                         <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'kecamatan')
@@ -22,6 +22,10 @@
                     <ul class="dropdown-menu">
                         <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'vitamin')
                         active @endif"><a class="nav-link" href="{{ route('vitamin.index') }}">Data Vitamin</a></li>
+                    </ul>
+                    <ul class="dropdown-menu">
+                        <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'kategori')
+                        active @endif"><a class="nav-link" href="{{ route('kategori.index') }}">Data Kategori</a></li>
                     </ul>
                 </li>
             @endif
@@ -37,6 +41,12 @@
             @if (Request::segment(1) == 'peternak')
                 <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'kandang') active @endif">
                     <a href="{{ route('kandang.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Kandang</span></a>
+                </li>
+                <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'progress') active @endif">
+                    <a href="{{ route('progress.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Progress</span></a>
+                </li>
+                <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'panen') active @endif">
+                    <a href="{{ route('panen.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Panen</span></a>
                 </li>
             @endif
             @if (Request::segment(1) == 'admin')

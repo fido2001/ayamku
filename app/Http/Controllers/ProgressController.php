@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Kandang;
 use App\Progress;
+use App\Vitamin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgressController extends Controller
 {
@@ -14,8 +17,13 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        $progress = Progress::get();
-        return view('progress.index', ['dataProgress' => $progress]);
+        $user_id = auth()->user()->id;
+        $kandang = Kandang::where('user_id', auth()->user()->id)->get();
+        $progress = DB::table('data_progress as progress')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'progress.ket_waktu', 'progress.sisa_ternak', 'progress.id')->get();
+        return view('progress.index', [
+            'dataProgress' => $progress,
+            'dataKandang' => $kandang
+        ]);
     }
 
     /**
@@ -36,7 +44,17 @@ class ProgressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->_validation($request);
+
+        $progress = Progress::create([
+            'id_kandang' => $request->id_kandang,
+            'ket_waktu' => date('Y-m-d H:i:s'),
+            'sisa_ternak' => $request->sisa_ternak,
+            'perkembangan' => $request->perkembangan,
+            'keluhan' => $request->keluhan
+        ]);
+
+        return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
     }
 
     /**
@@ -56,9 +74,9 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Progress $progress)
     {
-        //
+        return view('progress.progress-edit', compact('progress'));
     }
 
     /**
@@ -70,7 +88,15 @@ class ProgressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->_validation($request);
+        Progress::where('id', $id)->update([
+            'id_kandang' => $request->id_kandang,
+            'sisa_ternak' => $request->sisa_ternak,
+            'perkembangan' => $request->perkembangan,
+            'keluhan' => $request->keluhan
+        ]);
+
+        return redirect()->route('progress.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -81,6 +107,24 @@ class ProgressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Progress::destroy($id);
+        return redirect()->route('progress.index')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    private function _validation(Request $request)
+    {
+        $validation = $request->validate(
+            [
+                'id_kandang' => 'required',
+                'sisa_ternak' => 'required|numeric',
+                'perkembangan' => 'required'
+            ],
+            [
+                'id_kandang.required' => 'Data tidak boleh kosong, harap diisi',
+                'sisa_ternak.required' => 'Data tidak boleh kosong, harap diisi',
+                'sisa_ternak.numeric' => 'Sisa ternak tidak boleh melebihi 50 karakter',
+                'perkembangan.required' => 'Data tidak boleh kosong, harap diisi',
+            ]
+        );
     }
 }

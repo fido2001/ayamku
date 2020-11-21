@@ -15,12 +15,12 @@ class CreateDataProgressTable extends Migration
     {
         Schema::create('data_progress', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_vitamin');
+            $table->unsignedBigInteger('id_vitamin')->nullable();
             $table->unsignedBigInteger('id_kandang');
             $table->dateTime('ket_waktu');
             $table->integer('sisa_ternak');
             $table->text('perkembangan');
-            $table->text('keluhan');
+            $table->text('keluhan')->nullable();
             $table->timestamps();
         });
     }
