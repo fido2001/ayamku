@@ -37,14 +37,7 @@
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $kcm->nama_kecamatan }}</td>
                         <td class="text-center">
-                            <a href="{{ route('kecamatan.edit', $kcm->id) }}" class="badge badge-info btn-edit">Edit</a>
-                            <a href="#" data-id="{{ $kcm->id }}" class="badge badge-danger swal-confirm">
-                                <form action="{{ route('kecamatan.destroy', $kcm->id) }}" id="delete{{ $kcm->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                </form>
-                                Delete
-                            </a>
+                            <a href="{{ route('kecamatan.edit', $kcm->id) }}" class="badge badge-info btn-edit">Ubah</a>
                         </td>
                     </tr>
                 @endforeach
@@ -93,32 +86,3 @@
         </div>
     @endsection
 @endsection
-
-@push('page-scripts')
-<script src="{{ asset('../assets/modules/sweetalert/sweetalert.min.js') }}"></script>
-@endpush
-
-@push('after-scripts')
-<script>
-    $(".swal-confirm").click(function(e) {
-        id = e.target.dataset.id;
-        swal({
-            title: 'Yakin hapus data?',
-            text: 'Data yang sudah dihapus tidak bisa dikembalikan!',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal('Poof! File anda berhasil dihapus!', {
-                icon: 'success',
-                });
-                $(`#delete${id}`).submit();
-            } else {
-                // swal('Your imaginary file is safe!');
-            }
-        });
-    });
-</script>
-@endpush

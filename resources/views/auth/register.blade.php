@@ -45,7 +45,7 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="name">Nama Lengkap</label>
-                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autofocus required>
+                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -54,7 +54,7 @@ gtag('config', 'UA-94034622-3');
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="username">Username</label>
-                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" name="username" required>
+                                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" name="username">
                                             @error('username')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -66,7 +66,7 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="email">Email</label>
-                                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                            <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="password" class="d-block">Password</label>
-                                            <input id="password" type="password" class="form-control pwstrength @error('password') is-invalid @enderror" data-indicator="pwindicator" name="password" required>
+                                            <input id="password" type="password" class="form-control pwstrength @error('password') is-invalid @enderror" data-indicator="pwindicator" name="password">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -105,14 +105,14 @@ gtag('config', 'UA-94034622-3');
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="password-confirm" class="d-block">Konfirmasi Password</label>
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="noHp" class="d-block">Nomor HP</label>
-                                            <input id="noHp" type="text" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ old('noHp') }}" required>
+                                            <input id="noHp" type="text" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ old('noHp') }}">
                                             @error('noHp')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@ gtag('config', 'UA-94034622-3');
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label for="alamat" class="d-block">Alamat</label>
-                                            <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required>{{ old('alamat') }}</textarea>
+                                            <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat">{{ old('alamat') }}</textarea>
                                             @error('alamat')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

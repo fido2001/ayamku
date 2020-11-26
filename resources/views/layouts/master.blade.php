@@ -246,7 +246,7 @@ gtag('config', 'UA-94034622-3');
                         <i class="fas fa-cog"></i> Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
+                    {{-- <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
                     onclick="confirm('Anda yakin ingin keluar?'); event.preventDefault(); 
                         document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
@@ -254,11 +254,14 @@ gtag('config', 'UA-94034622-3');
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
+                    </a> --}}
+                    <a href="" onclick="doSomething(); return false;" class="dropdown-item has-icon text-danger" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-sign-out-alt"></i>Logout
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form>
+                    </form> --}}
                 </div>
             </li>
             </ul>
@@ -275,6 +278,30 @@ gtag('config', 'UA-94034622-3');
             {{-- <div class="section-body">
             </div> --}}
             @yield('content')
+            @section('modal')
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Anda yakin ingin Keluar ?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <div class="d-flex">
+                                    <button class="btn btn-danger mr-3" type="submit">Ya</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endsection
         </section>
         @yield('modal')
     </div>

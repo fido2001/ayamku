@@ -43,14 +43,7 @@
                         <td>{{ $kdg->lebar }} Meter</td>
                         <td>{{ $kdg->jumlahBibit }} Ekor</td>
                         <td class="text-center">
-                            <a href="{{ route('kandang.edit', $kdg->id) }}" class="badge badge-info btn-edit">Edit</a>
-                            <a href="#" data-id="{{ $kdg->id }}" class="badge badge-danger swal-confirm">
-                                <form action="{{ route('kandang.destroy', $kdg->id) }}" id="delete{{ $kdg->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                </form>
-                                Delete
-                            </a>
+                            <a href="{{ route('kandang.edit', $kdg->id) }}" class="badge badge-info btn-edit">Ubah</a>
                         </td>
                     </tr>
                 @endforeach
@@ -90,9 +83,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="panjang">
-                                            Panjang Kandang
+                                            Panjang Kandang (dalam Meter)
                                         </label>
-                                        <input type="number" id="panjang" name="panjang" value="{{ old('panjang') }}" class="input form-control @error('panjang') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" min="1" step="1" id="panjang" name="panjang" value="{{ old('panjang') }}" class="input form-control @error('panjang') is-invalid @enderror" autocomplete="off">
                                         @error('panjang')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -103,9 +96,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="lebar">
-                                            Lebar Kandang
+                                            Lebar Kandang (dalam Meter)
                                         </label>
-                                        <input type="number" id="lebar" name="lebar" value="{{ old('lebar') }}" class="input form-control @error('lebar') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" min="1" step="1" id="lebar" name="lebar" value="{{ old('lebar') }}" class="input form-control @error('lebar') is-invalid @enderror" autocomplete="off">
                                         @error('lebar')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -147,33 +140,8 @@
     @endsection
 @endsection
 
-@push('page-scripts')
-<script src="{{ asset('../assets/modules/sweetalert/sweetalert.min.js') }}"></script>
-@endpush
-
 @push('after-scripts')
 <script>
-    $(".swal-confirm").click(function(e) {
-        id = e.target.dataset.id;
-        swal({
-            title: 'Yakin hapus data?',
-            text: 'Data yang sudah dihapus tidak bisa dikembalikan!',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal('Poof! File anda berhasil dihapus!', {
-                icon: 'success',
-                });
-                $(`#delete${id}`).submit();
-            } else {
-                // swal('Your imaginary file is safe!');
-            }
-        });
-    });
-    
     $(".input").on('input', function(){
         
         var x = document.getElementById('panjang').value;

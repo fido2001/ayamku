@@ -49,6 +49,11 @@
                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="@if (Request::segment(1) == 'peternak')
+                                    {{ route('edit.profile.Peternak') }}
+                                @elseif (Request::segment(1) == 'distributor')
+                                    {{ route('edit.profile.Distributor') }}    
+                                @endif" class="btn btn-warning">Batal</a>
                     </form>
                 </div>
             </div>

@@ -16,49 +16,59 @@
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
                         <label>Nama Lengkap</label>
-                        <input type="text" class="form-control" name="name" value="{{ $user->name }}" required="">
-                        <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi!
-                        </div>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required="">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6 col-12">
                         <label>Username</label>
-                        <input type="text" class="form-control" name="username" value="{{ $user->username }}" required="">
-                        <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi!
-                        </div>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="username" value="{{ $user->username }}" required="">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
                 <div class="form-group col-md-6 col-12">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="{{ $user->email }}" required="">
-                    <div class="invalid-feedback">
-                        Data tidak boleh kosong, harap diisi!
-                    </div>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required="">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6 col-12">
                     <label>Nomor HP</label>
-                    <input type="tel" class="form-control" name="noHp" value="{{ $user->noHp }}">
-                    <div class="invalid-feedback">
-                        Data tidak boleh kosong, harap diisi!
-                    </div>
+                    <input type="tel" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ $user->noHp }}">
+                    @error('noHp')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-12">
                         <label>Alamat</label>
-                        <textarea name="alamat" class="form-control summernote-simple">{{ $user->alamat }}</textarea>
-                        <div class="invalid-feedback">
-                            Data tidak boleh kosong, harap diisi!
-                        </div>
+                        <textarea name="alamat" class="form-control summernote-simple @error('alamat') is-invalid @enderror">{{ $user->alamat }}</textarea>
+                        @error('alamat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6 col-12">
                         <label>Kecamatan</label>
                         <select name="kecamatan" id="kecamatan" class="form-control">
                             <option disabled selected>Pilih Salah Satu</option>
                             @foreach ($kecamatan as $kcm)
-                                <option {{ $kcm->id == $user->kcm_id ? 'selected' : '' }} value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
+                                <option {{ $kcm->id == $user->kecamatan_id ? 'selected' : '' }} value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
                             @endforeach
                         </select>
                     </div>

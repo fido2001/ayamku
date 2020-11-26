@@ -37,11 +37,18 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
-        ]);
+        $request->validate(
+            [
+                'title' => 'required',
+                'body' => 'required',
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+            ],
+            [
+                'title.required' => 'Data tidak boleh kosong',
+                'body.required' => 'Data tidak boleh kosong',
+                'thumbnail.required' => 'Data tidak boleh kosong'
+            ]
+        );
         $attr = $request->all();
         $slug = \Str::slug(request('title'));
         $attr['slug'] = $slug;
@@ -95,9 +102,18 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, Artikel $artikel)
     {
-        $request->validate([
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
-        ]);
+        $request->validate(
+            [
+                'title' => 'required',
+                'body' => 'required',
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+            ],
+            [
+                'title.required' => 'Data tidak boleh kosong',
+                'body.required' => 'Data tidak boleh kosong',
+                'thumbnail.required' => 'Data tidak boleh kosong'
+            ]
+        );
 
         if (request()->file('thumbnail')) {
             \Storage::delete($artikel->thumbnail);
@@ -128,7 +144,7 @@ class ArtikelController extends Controller
     {
         \Storage::delete($artikel->thumbnail);
         $artikel->delete();
-        session()->flash('success', 'Sebuah artikel berhasil dihapus.');
+        session()->flash('success', 'Artikel berhasil dihapus.');
         return redirect()->route('artikel.index');
     }
 }

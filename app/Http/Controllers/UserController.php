@@ -53,8 +53,8 @@ class UserController extends Controller
             [
                 'old_password.required' => 'Data tidak boleh kosong, harap diisi',
                 'password.required' => 'Data tidak boleh kosong, harap diisi',
-                'password.min' => 'Minimal 8 Karakter',
-                'password.confirmed' => 'Masukkan konfirmasi password yang valid',
+                'password.min' => 'Minimal 8 karakter',
+                'password.confirmed' => 'Data yang anda isi tidak sesuai. Silakan periksa kembali',
             ]
         );
 
@@ -75,9 +75,9 @@ class UserController extends Controller
     {
         $validation = $request->validate(
             [
-                'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'alpha_num', 'max:25'],
-                'noHp' => ['required', 'string', 'max:13', 'min:10'],
+                'name' => ['required', 'string', 'max:30'],
+                'username' => ['required', 'alpha_num', 'max:20'],
+                'noHp' => ['required', 'regex:/^(08)[0-9]*/', 'string', 'max:13', 'min:10'],
                 'alamat' => ['required'],
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255'],
@@ -91,9 +91,10 @@ class UserController extends Controller
                 'alamat.required' => 'Data tidak boleh kosong, harap diisi',
                 'email.required' => 'Data tidak boleh kosong, harap diisi',
                 'kecamatan.required' => 'Data tidak boleh kosong, harap diisi',
-                'email.email' => 'Masukkan Email yang valid.',
-                'username.max' => 'Maksimal 25 karakter',
-                'username.alpha_num' => 'Hanya bisa diisi dengan karakter alpha numeric',
+                'email.email' => 'Data yang anda masukkan salah, harap periksa kembali',
+                'username.max' => 'Maksimal 20 karakter',
+                'username.alpha_num' => 'Data yang anda masukkan salah, harap periksa kembali',
+                'noHp.regex' => 'Data yang anda masukkan salah, harap periksa kembali',
             ]
         );
     }
