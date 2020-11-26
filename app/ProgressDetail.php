@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class ProgressDetail extends Model
 {
@@ -18,5 +19,10 @@ class ProgressDetail extends Model
     public function vitamin()
     {
         return $this->belongsTo(Vitamin::class, 'id_vitamin');
+    }
+
+    public function getTanggalProgress()
+    {
+        return Carbon::parse($this->tgl_progress)->translatedFormat('l, d F Y');
     }
 }

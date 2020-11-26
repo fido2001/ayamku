@@ -4,10 +4,10 @@
 <div class="section-body">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Data Progress</h4>
+            <h3>Data Detail Progress</h3>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Tambah Data Progress
+                Tambah Progress
             </button>
         </div>
         @if (session('success'))
@@ -23,30 +23,32 @@
         </div>
         @endif
         <div class="card-body">
+            @foreach ($dataProgress as $dtProgress)
+            <h6>Lama Siklus : {{ $dtProgress->lama_siklus }} Hari</h6>
+            <h6>Tanggal Mulai : {{ $dtProgress->getTanggalMulai() }}</h6>
+            <h6>Tanggal Selesai : {{ $dtProgress->getTanggalSelesai() }}</h6>
+            <h6>Sisa Ternak Sementara : {{ $dtProgress->sisa_ternak }} Ekor</h6>
+            @endforeach
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Kode Kandang</th>
-                    <th scope="col">Sisa Ternak</th>
-                    <th scope="col">Lama Siklus</th>
-                    <th scope="col">Tanggal Mulai</th>
-                    <th scope="col">Tanggal Selesai</th>
-                    <th scope="col" class="text-center">Aksi</th>
+                    <th scope="col">Ternak Sehat</th>
+                    <th scope="col">Ternak Sakit</th>
+                    <th scope="col">Tanggal Progress</th>
+                    <th scope="col" class="text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($dataProgress as $no => $progress)
+                    @foreach ($progressDetail as $no => $progress)
                     <tr>
                         <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $progress->kode }}</td>
-                        <td>{{ $progress->sisa_ternak }} Ekor</td>
-                        <td>{{ $progress->lama_siklus }} Hari</td>
-                        <td>{{ $progress->getTanggalMulai() }}</td>
-                        <td>{{ $progress->getTanggalSelesai() }}</td>
+                        <td>{{ $progress->ternak_sehat }} Ekor</td>
+                        <td>{{ $progress->ternak_sakit }} Ekor</td>
+                        <td>{{ $progress->getTanggalProgress() }}</td>
                         <td class="text-center">
-                            <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
-                            <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
+                            {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                            <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a> --}}
                             {{-- <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
                                 <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
                                 @csrf
@@ -59,6 +61,7 @@
                 @endforeach
                 </tbody>
             </table>
+            <a href="{{ route('progress.index') }}">Kembali</a>
         </div>
     </div>
 </div>
@@ -68,25 +71,24 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Progress</h5>
+                        <h5 class="modal-title">Tambah Progress</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('progress.store') }}" method="POST">
+                    @foreach ($dataProgress as $dtProgress)
+                    <form action="{{ route('progress-detail.store', $dtProgress->id) }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
+                                <input type="hidden" value="{{ $dtProgress->id }}" name="id_progress">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="kandang">Kandang</label>
-                                        <select name="id_kandang" id="kandang" class="form-control @error('id_kandang') is-invalid @enderror">
-                                            <option disabled selected>Pilih Salah Satu</option>
-                                            @foreach ($dataKandang as $kandang)
-                                                <option value="{{ $kandang->id }}">{{ $kandang->kode }} , Jumlah Bibit : {{ $kandang->jumlahBibit }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_kandang')
+                                        <label for="lebar">
+                                            Ternak Sehat
+                                        </label>
+                                        <input type="number" min="1" step="1" id="ternak_sehat" name="ternak_sehat" value="{{ old('ternak_sehat') }}" class="form-control @error('ternak_sehat') is-invalid @enderror" autocomplete="off">
+                                        @error('ternak_sehat')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -96,10 +98,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="lebar">
-                                            Sisa Ternak
+                                            Ternak Sakit
                                         </label>
-                                        <input type="number" min="1" step="1" id="sisa_ternak" name="sisa_ternak" value="{{ old('sisa_ternak') }}" class="form-control @error('sisa_ternak') is-invalid @enderror" autocomplete="off">
-                                        @error('sisa_ternak')
+                                        <input type="number" min="1" step="1" id="ternak_sakit" name="ternak_sakit" value="{{ old('ternak_sakit') }}" class="form-control @error('ternak_sakit') is-invalid @enderror" autocomplete="off">
+                                        @error('ternak_sakit')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -108,11 +110,23 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="lebar">
-                                            Lama Siklus (Hari)
+                                        <label>
+                                            Perkembangan
                                         </label>
-                                        <input type="number" min="1" step="1" id="lama_siklus" name="lama_siklus" value="{{ old('lama_siklus') }}" class="form-control @error('lama_siklus') is-invalid @enderror" autocomplete="off">
-                                        @error('lama_siklus')
+                                        <textarea name="perkembangan" id="perkembangan" class="form-control @error('perkembangan') is-invalid @enderror">{{ old('perkembangan') }}</textarea>
+                                        @error('perkembangan')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Keluhan</label>
+                                        <small class="text-muted">( Tidak perlu diisi jika tidak ada keluhan. )</small>
+                                        <textarea name="keluhan" id="keluhan" class="form-control @error('keluhan') is-invalid @enderror">{{ old('keluhan') }}</textarea>
+                                        @error('keluhan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -126,6 +140,7 @@
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -20,6 +20,8 @@ Route::prefix('peternak')->middleware('auth')->group(function () {
     Route::get('artikel/{artikel:slug}', 'ArtikelController@show')->name('artikel.show.peternak');
     Route::resource('kandang', 'KandangController');
     Route::resource('progress', 'ProgressController');
+    Route::get('progress-detail/{progress}', 'ProgressDetailController@index')->name('progress-detail.index');
+    Route::post('progress-detail/{progress}', 'ProgressDetailController@store')->name('progress-detail.store');
     Route::resource('panen', 'PanenController');
     Route::get('/myProfile', 'UserController@myProfile')->name('profile.Peternak');
     Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.Peternak');
