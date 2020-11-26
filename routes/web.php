@@ -28,6 +28,8 @@ Route::prefix('peternak')->middleware('auth')->group(function () {
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Peternak');
     Route::get('/editPassword', 'UserController@editPassword')->name('edit.password.Peternak');
     Route::patch('/editPassword', 'UserController@updatePassword')->name('edit.password.Peternak');
+    Route::get('/produk', 'ProdukController@index')->name('produk.index.peternak');
+    Route::post('/produk', 'ProdukController@store')->name('produk.store');
 });
 
 Route::prefix('distributor')->middleware('auth')->group(function () {

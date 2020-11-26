@@ -22,7 +22,7 @@ class CreateKandangsTable extends Migration
             $table->integer('jumlahBibit');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

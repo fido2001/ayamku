@@ -48,6 +48,9 @@
                 <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'panen') active @endif">
                     <a href="{{ route('panen.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Panen</span></a>
                 </li>
+                <li class="@if(Request::segment(1) == 'peternak' and Request::segment(2) == 'produk') active @endif">
+                    <a href="{{ route('produk.index.peternak') }}" class="nav-link"><i class="fas fa-home"></i><span>Produk</span></a>
+                </li>
             @endif
             @if (Request::segment(1) == 'admin')
                 <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkun') active @endif">

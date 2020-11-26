@@ -25,4 +25,9 @@ class Panen extends Model
     {
         return Carbon::parse($this->tanggal)->translatedFormat('l, d F Y');
     }
+
+    public function produk()
+    {
+        return $this->hasMany(Produk::class, 'id_panen');
+    }
 }

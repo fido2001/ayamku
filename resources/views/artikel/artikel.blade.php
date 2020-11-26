@@ -34,7 +34,7 @@
                     </a>
                     @endif
                     <div class="article-details">
-                        <div class="article-category"><a>Published on {{ $art->created_at->diffForHumans() }}</a></div>
+                        <div class="article-category"><a>Dibuat {{ $art->created_at->diffForHumans() }}</a></div>
                         <div class="article-title">
                         <h2><a href="@if(Request::segment(1) == 'admin') {{ route('artikel.edit.admin', $art->slug) }}
                             @elseif(Request::segment(1) == 'peternak') {{ route('artikel.show.peternak', $art->slug) }}  

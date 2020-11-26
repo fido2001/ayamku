@@ -7,7 +7,6 @@ use App\Panen;
 use App\Progress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PanenController extends Controller
 {
@@ -18,7 +17,7 @@ class PanenController extends Controller
      */
     public function index()
     {
-        Carbon::setTestNow('2020-12-20');
+        // Carbon::setTestNow('2020-12-20');
 
         $user_id = auth()->user()->id;
 
@@ -26,7 +25,6 @@ class PanenController extends Controller
 
         $progress = Progress::join('kandang', 'data_progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'data_progress.sisa_ternak', 'data_progress.id', 'data_progress.tgl_selesai')->get();
 
-        // dd($panen, $progress);
         $dataKategori = Kategori::get();
         return view('panen.index', compact('panen', 'progress', 'dataKategori'));
     }
@@ -49,9 +47,6 @@ class PanenController extends Controller
      */
     public function store(Request $request)
     {
-        // Carbon::setTestNow('2020-12-20');
-        // $data = $request->all();
-        // dd($data);
         $this->_validation($request);
 
         $tgl_panen = Carbon::now()->setTimezone('Asia/Jakarta');
