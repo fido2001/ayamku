@@ -35,9 +35,9 @@
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="form-group col-md-8 col-12">
-                        <label>Syarat</label>
-                        <input type="text" class="form-control @error('syarat') is-invalid @enderror" name="syarat" value="{{ $vitamin->syarat }}" required="">
-                        @error('syarat')
+                        <label>Khasiat</label>
+                        <input type="text" class="form-control @error('khasiat') is-invalid @enderror" name="khasiat" value="{{ $vitamin->khasiat }}" required="">
+                        @error('khasiat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

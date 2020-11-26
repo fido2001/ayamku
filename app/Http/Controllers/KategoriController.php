@@ -96,11 +96,11 @@ class KategoriController extends Controller
     {
         $validation = $request->validate(
             [
-                'bobot' => 'required|max:30|min:3',
+                'bobot' => 'required|max:50|min:3',
             ],
             [
                 'bobot.required' => 'Data tidak boleh kosong, harap diisi',
-                'bobot.max' => 'Data tidak boleh melebihi 30 karakter',
+                'bobot.max' => 'Data tidak boleh melebihi 50 karakter',
                 'bobot.min' => 'Data minimal 3 karakter',
             ]
         );

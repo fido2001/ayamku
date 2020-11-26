@@ -15,7 +15,7 @@ class CreateKandangsTable extends Migration
     {
         Schema::create('kandang', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('user_id');
             $table->string('kode');
             $table->integer('panjang');
             $table->integer('lebar');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kategori;
 use App\Panen;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +17,10 @@ class PanenController extends Controller
      */
     public function index()
     {
+        // Carbon::setTestNow('2020-12-26');
         $user_id = auth()->user()->id;
-        $panen = DB::table('data_panen as panen')->join('data_progress as progress', 'panen.id_progress', '=', 'progress.id')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('panen.lama_panen', 'panen.total_ternak', 'panen.tanggal', 'panen.id')->get();
-        $progress = DB::table('data_progress as progress')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'progress.ket_waktu', 'progress.sisa_ternak', 'progress.id')->get();
+        $panen = DB::table('data_panen as panen')->join('data_progress as progress', 'panen.id_progress', '=', 'progress.id')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('panen.*')->get();
+        $progress = DB::table('data_progress as progress')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'progress.sisa_ternak', 'progress.id', 'progress.tgl_selesai')->get();
         // dd($panen, $progress);
         $dataKategori = Kategori::get();
         return view('panen.index', compact('panen', 'progress', 'dataKategori'));
@@ -122,7 +124,7 @@ class PanenController extends Controller
                 'total_ternak' => 'required|numeric'
             ],
             [
-                'id_progress.required' => 'Data tidak boleh kosong, harap diisi',
+                'id_progress.required' => 'Data tidak boleh kosong, harap diisi. Atau belum masuk waktu panen',
                 'id_kategori.required' => 'Data tidak boleh kosong, harap diisi',
                 'lama_panen.required' => 'Data tidak boleh kosong, harap diisi',
                 'lama_panen.numeric' => 'Data harus angka',

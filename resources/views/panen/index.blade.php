@@ -38,7 +38,7 @@
                     <tr>
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $pan->total_ternak }} Ekor</td>
-                        <td>{{ $pan->lama_panen }} hari</td>
+                        {{-- <td>{{ $pan->lama_panen }} hari</td> --}}
                         <td>{{ date('d M Y', strtotime($pan->tanggal)) }}</td>
                         <td class="text-center">
                             <a href="{{ route('panen.edit', $pan->id) }}" class="badge badge-info btn-edit">Edit</a>
@@ -74,11 +74,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        
                                         <label for="progress">Data Progress</label>
                                         <select name="id_progress" id="progress" class="form-control @error('id_progress') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
                                             @foreach ($progress as $prg)
-                                                <option value="{{ $prg->id }}">Kode Kandang : {{ $prg->kode }} | Sisa Ternak : {{ $prg->sisa_ternak }} | Tanggal : {{ date('d M Y', strtotime($prg->ket_waktu)) }}</option>
+                                            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') == $prg->tgl_selesai)
+                                            <option value="{{ $prg->id }}">Kode Kandang : {{ $prg->kode }} | Sisa Ternak : {{ $prg->sisa_ternak }}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         @error('id_progress')

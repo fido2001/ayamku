@@ -29,8 +29,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Jenis Vitamin</th>
                     <th scope="col">Takaran</th>
-                    <th scope="col">Syarat</th>
-                    <th scope="col" class="text-center">Action</th>
+                    <th scope="col">Khasiat</th>
+                    <th scope="col" class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $vitamin->jenis_vitamin }}</td>
                         <td>{{ $vitamin->takaran }}</td>
-                        <td>{{ $vitamin->syarat }}</td>
+                        <td>{{ Str::limit($vitamin->khasiat, 90) }}</td>
                         <td class="text-center">
                             <a href="{{ route('vitamin.edit', $vitamin->id) }}" class="badge badge-info btn-edit">Edit</a>
                             <a href="#" data-id="{{ $vitamin->id }}" class="badge badge-danger swal-confirm">
@@ -101,10 +101,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>
-                                            Syarat
+                                            Khasiat
                                         </label>
-                                        <input type="text" name="syarat" value="{{ old('syarat') }}" class="form-control @error('syarat') is-invalid @enderror" autocomplete="off">
-                                        @error('syarat')
+                                        <input type="text" name="khasiat" value="{{ old('khasiat') }}" class="form-control @error('khasiat') is-invalid @enderror" autocomplete="off">
+                                        @error('khasiat')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

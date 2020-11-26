@@ -41,12 +41,12 @@ class ArtikelController extends Controller
             [
                 'title' => 'required',
                 'body' => 'required',
-                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+                'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
             ],
             [
                 'title.required' => 'Data tidak boleh kosong',
                 'body.required' => 'Data tidak boleh kosong',
-                'thumbnail.required' => 'Data tidak boleh kosong'
+                // 'thumbnail.required' => 'Data tidak boleh kosong'
             ]
         );
         $attr = $request->all();
@@ -54,7 +54,7 @@ class ArtikelController extends Controller
         $attr['slug'] = $slug;
 
         if (request()->file('image')) {
-            $thumbnail = request()->file('image')->store("images/artikel");
+            $thumbnail = request()->file('image')->store("images/artikel", "public");
         } else {
             $thumbnail = null;
         }
@@ -106,12 +106,12 @@ class ArtikelController extends Controller
             [
                 'title' => 'required',
                 'body' => 'required',
-                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+                'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
             ],
             [
                 'title.required' => 'Data tidak boleh kosong',
                 'body.required' => 'Data tidak boleh kosong',
-                'thumbnail.required' => 'Data tidak boleh kosong'
+                // 'thumbnail.required' => 'Data tidak boleh kosong'
             ]
         );
 

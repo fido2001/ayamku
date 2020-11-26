@@ -8,7 +8,7 @@ class Vitamin extends Model
 {
     protected $table = 'vitamin';
 
-    protected $fillable = ['jenis_vitamin', 'takaran', 'syarat'];
+    protected $fillable = ['jenis_vitamin', 'takaran', 'khasiat'];
 
     public function progress_detail()
     {

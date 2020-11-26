@@ -76,7 +76,7 @@ class VitaminController extends Controller
         Vitamin::where('id', $id)->update([
             'jenis_vitamin' => $request->jenis_vitamin,
             'takaran' => $request->takaran,
-            'syarat' => $request->syarat
+            'khasiat' => $request->khasiat
         ]);
 
         return redirect()->route('vitamin.index')->with('success', 'Data Berhasil Disimpan');
@@ -99,8 +99,8 @@ class VitaminController extends Controller
         $validation = $request->validate(
             [
                 'jenis_vitamin' => 'required|max:50|min:3',
-                'takaran' => 'required|max:50|min:3',
-                'syarat' => 'required|max:50|min:3'
+                'takaran' => 'required|max:100|min:3',
+                'khasiat' => 'required|max:100|min:3'
             ],
             [
                 'jenis_vitamin.required' => 'Data tidak boleh kosong, harap diisi',
@@ -109,9 +109,9 @@ class VitaminController extends Controller
                 'takaran.required' => 'Data tidak boleh kosong, harap diisi',
                 'takaran.max' => 'Takaran tidak boleh melebihi 50 karakter',
                 'takaran.min' => 'Takaran minimal 3 karakter',
-                'syarat.required' => 'Data tidak boleh kosong, harap diisi',
-                'syarat.max' => 'Syarat tidak boleh melebihi 50 karakter',
-                'syarat.min' => 'Syarat minimal 3 karakter'
+                'khasiat.required' => 'Data tidak boleh kosong, harap diisi',
+                'khasiat.max' => 'khasiat tidak boleh melebihi 50 karakter',
+                'khasiat.min' => 'khasiat minimal 3 karakter'
             ]
         );
     }

@@ -28,7 +28,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Kriteria Bobot</th>
-                    <th scope="col" class="text-center">Action</th>
+                    <th scope="col" class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>

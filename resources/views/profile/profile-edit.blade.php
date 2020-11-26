@@ -16,7 +16,7 @@
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
                         <label>Nama Lengkap</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required="">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group col-md-6 col-12">
                         <label>Username</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="username" value="{{ $user->username }}" required="">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="username" value="{{ $user->username }}">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
                 <div class="row">
                 <div class="form-group col-md-6 col-12">
                     <label>Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required="">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -65,12 +65,17 @@
                     </div>
                     <div class="form-group col-md-6 col-12">
                         <label>Kecamatan</label>
-                        <select name="kecamatan" id="kecamatan" class="form-control">
+                        <select name="kecamatan" id="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror">
                             <option disabled selected>Pilih Salah Satu</option>
                             @foreach ($kecamatan as $kcm)
                                 <option {{ $kcm->id == $user->kecamatan_id ? 'selected' : '' }} value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
                             @endforeach
                         </select>
+                        @error('kecamatan')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 <a href="@if (Request::segment(1) == 'peternak')
