@@ -17,10 +17,12 @@ class CreateDataPanenTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_progress');
             $table->unsignedBigInteger('id_kategori');
-            $table->string('lama_panen', 3);
             $table->integer('total_ternak');
             $table->date('tanggal');
             $table->timestamps();
+
+            $table->foreign('id_progress')->references('id')->on('data_progress')->onDelete('cascade');
+            $table->foreign('id_kategori')->references('id')->on('kategori')->onDelete('cascade');
         });
     }
 

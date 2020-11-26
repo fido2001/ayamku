@@ -17,7 +17,7 @@ class CreateVitaminTable extends Migration
             $table->id();
             $table->string('jenis_vitamin', 100);
             $table->string('takaran', 100);
-            $table->string('syarat', 100);
+            $table->string('khasiat', 100);
             $table->timestamps();
         });
     }

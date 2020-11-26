@@ -10,8 +10,8 @@ class Vitamin extends Model
 
     protected $fillable = ['jenis_vitamin', 'takaran', 'syarat'];
 
-    public function progress()
+    public function progress_detail()
     {
-        return $this->hasMany(Progress::class, 'id_vitamin');
+        return $this->hasMany(ProgressDetail::class, 'id_vitamin');
     }
 }

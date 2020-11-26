@@ -7,6 +7,7 @@ use App\Progress;
 use App\Vitamin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProgressController extends Controller
 {
@@ -19,7 +20,7 @@ class ProgressController extends Controller
     {
         $user_id = auth()->user()->id;
         $kandang = Kandang::where('user_id', auth()->user()->id)->get();
-        $progress = DB::table('data_progress as progress')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'progress.ket_waktu', 'progress.sisa_ternak', 'progress.id')->get();
+        $progress = Progress::join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('data_progress.*', 'kandang.kode')->get();
         return view('progress.index', [
             'dataProgress' => $progress,
             'dataKandang' => $kandang
@@ -46,12 +47,16 @@ class ProgressController extends Controller
     {
         $this->_validation($request);
 
+        $tgl_mulai = Carbon::now()->setTimezone('Asia/Jakarta');
+
+        $tgl_selesai = Carbon::now()->setTimezone('Asia/Jakarta')->addDays($request->lama_siklus);
+
         $progress = Progress::create([
             'id_kandang' => $request->id_kandang,
-            'ket_waktu' => date('Y-m-d H:i:s'),
             'sisa_ternak' => $request->sisa_ternak,
-            'perkembangan' => $request->perkembangan,
-            'keluhan' => $request->keluhan
+            'tgl_mulai' => $tgl_mulai,
+            'tgl_selesai' => $tgl_selesai,
+            'lama_siklus' => $request->lama_siklus
         ]);
 
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
@@ -89,11 +94,17 @@ class ProgressController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation($request);
+
+        // $tgl_mulai = Carbon::now()->setTimezone('Asia/Jakarta');
+
+        // $tgl_selesai = Carbon::now()->setTimezone('Asia/Jakarta')->addDays($request->lama_siklus);
+
         Progress::where('id', $id)->update([
             'id_kandang' => $request->id_kandang,
             'sisa_ternak' => $request->sisa_ternak,
-            'perkembangan' => $request->perkembangan,
-            'keluhan' => $request->keluhan
+            // 'tgl_mulai' => $tgl_mulai,
+            // 'tgl_selesai' => $tgl_selesai,
+            // 'lama_siklus' => $request->lama_siklus
         ]);
 
         return redirect()->route('progress.index')->with('success', 'Data Berhasil Disimpan');
@@ -116,14 +127,13 @@ class ProgressController extends Controller
         $validation = $request->validate(
             [
                 'id_kandang' => 'required',
-                'sisa_ternak' => 'required|numeric',
-                'perkembangan' => 'required'
+                'sisa_ternak' => 'required|integer|between:1,99999',
+                'lama_siklus' => 'required|integer|between:1,50'
             ],
             [
                 'id_kandang.required' => 'Data tidak boleh kosong, harap diisi',
                 'sisa_ternak.required' => 'Data tidak boleh kosong, harap diisi',
-                'sisa_ternak.numeric' => 'Sisa ternak tidak boleh melebihi 50 karakter',
-                'perkembangan.required' => 'Data tidak boleh kosong, harap diisi',
+                'lama_siklus.required' => 'Data tidak boleh kosong, harap diisi'
             ]
         );
     }

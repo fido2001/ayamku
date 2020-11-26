@@ -15,13 +15,14 @@ class CreateDataProgressTable extends Migration
     {
         Schema::create('data_progress', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_vitamin')->nullable();
             $table->unsignedBigInteger('id_kandang');
-            $table->dateTime('ket_waktu');
-            $table->integer('sisa_ternak');
-            $table->text('perkembangan');
-            $table->text('keluhan')->nullable();
+            $table->integer('sisa_ternak')->nullable();
+            $table->date('tgl_mulai');
+            $table->date('tgl_selesai');
+            $table->integer('lama_siklus');
             $table->timestamps();
+
+            $table->foreign('id_kandang')->references('id')->on('kandang')->onDelete('cascade');
         });
     }
 

@@ -29,7 +29,9 @@
                     <th scope="col">#</th>
                     <th scope="col">Kode Kandang</th>
                     <th scope="col">Sisa Ternak</th>
-                    <th scope="col">Tanggal Progress</th>
+                    <th scope="col">Lama Siklus</th>
+                    <th scope="col">Tanggal Mulai</th>
+                    <th scope="col">Tanggal Selesai</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
                 </thead>
@@ -39,7 +41,9 @@
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $progress->kode }}</td>
                         <td>{{ $progress->sisa_ternak }} Ekor</td>
-                        <td>{{ date('d M Y', strtotime($progress->ket_waktu)) }}</td>
+                        <td>{{ $progress->lama_siklus }}</td>
+                        <td>{{ $progress->getTanggalMulai() }}</td>
+                        <td>{{ $progress->getTanggalSelesai() }}</td>
                         <td class="text-center">
                             <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info btn-edit">Edit</a>
                             <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
@@ -93,7 +97,7 @@
                                         <label for="lebar">
                                             Sisa Ternak
                                         </label>
-                                        <input type="number" id="sisa_ternak" name="sisa_ternak" value="{{ old('sisa_ternak') }}" class="form-control @error('sisa_ternak') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" min="1" step="1" id="sisa_ternak" name="sisa_ternak" value="{{ old('sisa_ternak') }}" class="form-control @error('sisa_ternak') is-invalid @enderror" autocomplete="off">
                                         @error('sisa_ternak')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -103,23 +107,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>
-                                            Perkembangan
+                                        <label for="lebar">
+                                            Lama Siklus (Hari)
                                         </label>
-                                        <textarea name="perkembangan" id="perkembangan" class="form-control @error('perkembangan') is-invalid @enderror">{{ old('perkembangan') }}</textarea>
-                                        @error('perkembangan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Keluhan</label>
-                                        <small class="text-muted">( Tidak perlu diisi jika tidak ada keluhan. )</small>
-                                        <textarea name="keluhan" id="keluhan" class="form-control @error('keluhan') is-invalid @enderror">{{ old('keluhan') }}</textarea>
-                                        @error('keluhan')
+                                        <input type="number" min="1" step="1" id="lama_siklus" name="lama_siklus" value="{{ old('lama_siklus') }}" class="form-control @error('lama_siklus') is-invalid @enderror" autocomplete="off">
+                                        @error('lama_siklus')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
