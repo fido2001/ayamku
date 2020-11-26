@@ -30,6 +30,9 @@ Route::prefix('peternak')->middleware('auth')->group(function () {
     Route::patch('/editPassword', 'UserController@updatePassword')->name('edit.password.Peternak');
     Route::get('/produk', 'ProdukController@index')->name('produk.index.peternak');
     Route::post('/produk', 'ProdukController@store')->name('produk.store');
+    Route::get('/produk/{produk}', 'ProdukController@edit')->name('produk.edit');
+    Route::post('/produk/{produk}', 'ProdukController@update')->name('produk.update');
+    Route::delete('/produk/{produk}', 'ProdukController@destroy')->name('produk.destroy');
 });
 
 Route::prefix('distributor')->middleware('auth')->group(function () {

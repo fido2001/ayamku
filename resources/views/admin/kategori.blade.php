@@ -37,13 +37,13 @@
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $ktg->bobot }}</td>
                         <td class="text-center">
-                            <a href="{{ route('kategori.edit', $ktg->id) }}" class="badge badge-info btn-edit">Edit</a>
+                            <a href="{{ route('kategori.edit', $ktg->id) }}" class="badge badge-info btn-edit">Ubah</a>
                             <a href="#" data-id="{{ $ktg->id }}" class="badge badge-danger swal-confirm">
                                 <form action="{{ route('kategori.destroy', $ktg->id) }}" id="delete{{ $ktg->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 </form>
-                                Delete
+                                Hapus
                             </a>
                         </td>
                     </tr>

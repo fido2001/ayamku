@@ -42,18 +42,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($panen as $no => $pan)
+                        @foreach ($dataProduk as $no => $produk)
                             <tr>
                                 <th scope="row">{{ $no+1 }}</th>
-                                <td>{{ $pan->total_ternak }} Ekor</td>
-                                <td>{{ $pan->usia_ternak }} Hari</td>
-                                <td>{{ $pan->bobot }}</td>
-                                <td>{{ $pan->getTanggal() }}</td>
+                                <td>Rp. {{ $produk->harga }}/Ekor</td>
+                                <td>{{ $produk->jumlah_produk }} Ekor</td>
+                                <td>{{ $produk->bobot }}</td>
+                                <td>{{ Carbon\Carbon::parse($produk->tanggal)->translatedFormat('l, d F Y') }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('panen.edit', $pan->id) }}" class="badge badge-info btn-edit">Ubah</a>
+                                    <a href="{{ route('produk.edit', $produk->id) }}" class="badge badge-info btn-edit">Ubah</a>
+                                    <a href="#" data-id="{{ $produk->id }}" class="badge badge-danger swal-confirm">
+                                        <form action="{{ route('produk.destroy', $produk->id) }}" id="delete{{ $produk->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                        Hapus
+                                    </a>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -107,29 +114,13 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="progress">Data Progress</label>
-                                        <select name="id_progress" id="progress" class="form-control @error('id_progress') is-invalid @enderror">
-                                            <option disabled selected>Pilih Salah Satu</option>
-                                            @foreach ($progress as $prg)
-                                            <option value="{{ $prg->id }}">Kode Kandang : {{ $prg->kode }} | Sisa Ternak : {{ $prg->sisa_ternak }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_progress')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="total_ternak">
-                                            Total Ternak
+                                            Harga
                                         </label>
-                                        <input type="number" min="1" step="1" id="total_ternak" name="total_ternak" value="{{ old('total_ternak') }}" class="form-control @error('total_ternak') is-invalid @enderror" autocomplete="off">
-                                        @error('total_ternak')
+                                        <input type="number" min="1" step="1" id="harga" name="harga" value="{{ old('harga') }}" class="form-control @error('harga') is-invalid @enderror" autocomplete="off">
+                                        @error('harga')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

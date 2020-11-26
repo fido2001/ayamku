@@ -54,7 +54,6 @@ class PanenController extends Controller
         $panen = Panen::create([
             'id_progress' => $request->id_progress,
             'id_kategori' => $request->id_kategori,
-            'usia_ternak' => $request->usia_ternak,
             'total_ternak' => $request->total_ternak,
             'tanggal' => $tgl_panen
         ]);

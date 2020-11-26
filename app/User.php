@@ -46,9 +46,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Kandang::class, 'user_id');
     }
-
-    public function produk()
-    {
-        return $this->hasMany(Produk::class, 'id_produk');
-    }
 }
