@@ -92,6 +92,21 @@ class KandangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        request()->validate(
+            [
+                'kode' => ['required'],
+                'panjang' => ['required', 'integer', 'between:1,999'],
+                'lebar' => ['required', 'integer', 'between:1,999'],
+                'jumlahBibit' => ['required', 'integer', 'between:1,99999']
+            ],
+            [
+                'kode.required' => 'Data tidak boleh kosong, harap diisi!',
+                'panjang.required' => 'Data tidak boleh kosong, harap diisi!',
+                'lebar.required' => 'Data tidak boleh kosong, harap diisi!',
+                'jumlahBibit.required' => 'Data tidak boleh kosong, harap diisi!',
+            ]
+        );
+
         Kandang::where('id', $id)->update([
             'kode' => $request->kode,
             'panjang' => $request->panjang,

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
 <div class="section-body">
     <div class="card">
@@ -23,32 +29,36 @@
         </div>
         @endif
         <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Kode Kandang</th>
-                    <th scope="col">Panjang Kandang</th>
-                    <th scope="col">Lebar Kandang</th>
-                    <th scope="col">Jumlah Ternak</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($kandang as $no => $kdg)
-                    <tr>
-                        <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $kdg->kode }}</td>
-                        <td>{{ $kdg->panjang }} Meter</td>
-                        <td>{{ $kdg->lebar }} Meter</td>
-                        <td>{{ $kdg->jumlahBibit }} Ekor</td>
-                        <td class="text-center">
-                            <a href="{{ route('kandang.edit', $kdg->id) }}" class="badge badge-info btn-edit">Ubah</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                    <thead>                                 
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th scope="col">Kode Kandang</th>
+                            <th scope="col">Panjang Kandang</th>
+                            <th scope="col">Lebar Kandang</th>
+                            <th scope="col">Jumlah Ternak</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($kandang as $no => $kdg)                                
+                        <tr>
+                            <td class="text-center">
+                                {{ $no+1 }}
+                            </td>
+                            <td>{{ $kdg->kode }}</td>
+                            <td>{{ $kdg->panjang }} Meter</td>
+                            <td>{{ $kdg->lebar }} Meter</td>
+                            <td>{{ $kdg->jumlahBibit }} Ekor</td>
+                            <td class="text-center">
+                                <a href="{{ route('kandang.edit', $kdg->id) }}" class="badge badge-info btn-edit">Ubah</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -139,6 +149,17 @@
         </div>
     @endsection
 @endsection
+
+@push('page-scripts')
+<script src="{{ asset('../assets/modules/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+@endpush
+
+@push('page-spesific-scripts')
+<script src="{{ asset('../assets/js/page/modules-datatables.js') }}"></script>
+@endpush
 
 @push('after-scripts')
 <script>

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
 <div class="section-body">
     <div class="card">
@@ -29,7 +35,7 @@
             <h6>Tanggal Selesai : {{ $dtProgress->getTanggalSelesai() }}</h6>
             <h6>Sisa Ternak Sementara : {{ $dtProgress->sisa_ternak }} Ekor</h6>
             @endforeach
-            <table class="table table-hover">
+            {{-- <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -47,20 +53,54 @@
                         <td>{{ $progress->ternak_sakit }} Ekor</td>
                         <td>{{ $progress->getTanggalProgress() }}</td>
                         <td class="text-center">
-                            {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
-                            <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a> --}}
-                            {{-- <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
+                            <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                            <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
+                            <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
                                 <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 </form>
                                 Hapus
-                            </a> --}}
+                            </a>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
-            </table>
+            </table> --}}
+            <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                    <thead>                                 
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th scope="col">Ternak Sehat</th>
+                            <th scope="col">Ternak Sakit</th>
+                            <th scope="col">Tanggal Progress</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($progressDetail as $no => $progress)
+                        <tr>
+                            <th scope="row">{{ $no+1 }}</th>
+                            <td>{{ $progress->ternak_sehat }} Ekor</td>
+                            <td>{{ $progress->ternak_sakit }} Ekor</td>
+                            <td>{{ $progress->getTanggalProgress() }}</td>
+                            <td class="text-center">
+                                {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                                <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a> --}}
+                                {{-- <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
+                                    <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    </form>
+                                    Hapus
+                                </a> --}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <a href="{{ route('progress.index') }}">Kembali</a>
         </div>
     </div>
@@ -146,6 +186,17 @@
         </div>
     @endsection
 @endsection
+
+@push('page-scripts')
+<script src="{{ asset('../assets/modules/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+@endpush
+
+@push('page-spesific-scripts')
+<script src="{{ asset('../assets/js/page/modules-datatables.js') }}"></script>
+@endpush
 
 {{-- @push('page-scripts')
 <script src="{{ asset('../assets/modules/sweetalert/sweetalert.min.js') }}"></script>

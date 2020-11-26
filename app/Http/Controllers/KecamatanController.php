@@ -14,7 +14,7 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        $kecamatan = Kecamatan::get();
+        $kecamatan = Kecamatan::paginate(6);
         return view('admin.kecamatan', ['kecamatan' => $kecamatan]);
     }
 

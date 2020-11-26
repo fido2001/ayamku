@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
 <div class="section-body">
     <div class="card">
@@ -23,7 +29,7 @@
         </div>
         @endif
         <div class="card-body">
-            <table class="table table-hover">
+            {{-- <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -38,10 +44,9 @@
                     <tr>
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $pan->total_ternak }} Ekor</td>
-                        {{-- <td>{{ $pan->lama_panen }} hari</td> --}}
                         <td>{{ date('d M Y', strtotime($pan->tanggal)) }}</td>
                         <td class="text-center">
-                            <a href="{{ route('panen.edit', $pan->id) }}" class="badge badge-info btn-edit">Edit</a>
+                            <a href="{{ route('panen.edit', $pan->id) }}" class="badge badge-info btn-edit">Ubah</a>
                             <a href="#" data-id="{{ $pan->id }}" class="badge badge-danger swal-confirm">
                                 <form action="{{ route('panen.destroy', $pan->id) }}" id="delete{{ $pan->id }}" method="POST">
                                 @csrf
@@ -53,7 +58,35 @@
                     </tr>
                 @endforeach
                 </tbody>
-            </table>
+            </table> --}}
+            <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                    <thead>                                 
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th scope="col">Total Ternak</th>
+                            <th scope="col">Usia Ternak</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Tanggal Panen</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($panen as $no => $pan)
+                            <tr>
+                                <th scope="row">{{ $no+1 }}</th>
+                                <td>{{ $pan->total_ternak }} Ekor</td>
+                                <td>{{ $pan->usia_ternak }} Hari</td>
+                                <td>{{ $pan->bobot }}</td>
+                                <td>{{ $pan->getTanggal() }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('panen.edit', $pan->id) }}" class="badge badge-info btn-edit">Ubah</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -79,7 +112,7 @@
                                         <select name="id_progress" id="progress" class="form-control @error('id_progress') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
                                             @foreach ($progress as $prg)
-                                            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') == $prg->tgl_selesai)
+                                            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') >= Carbon\Carbon::parse($prg->tgl_selesai)->addDays(-7))
                                             <option value="{{ $prg->id }}">Kode Kandang : {{ $prg->kode }} | Sisa Ternak : {{ $prg->sisa_ternak }}</option>
                                             @endif
                                             @endforeach
@@ -109,11 +142,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="lama_panen">
-                                            Lama Siklus
+                                        <label for="total_ternak">
+                                            Total Ternak
                                         </label>
-                                        <input type="number" id="lama_panen" name="lama_panen" value="{{ old('lama_panen') }}" class="form-control @error('lama_panen') is-invalid @enderror" autocomplete="off">
-                                        @error('lama_panen')
+                                        <input type="number" min="1" step="1" id="total_ternak" name="total_ternak" value="{{ old('total_ternak') }}" class="form-control @error('total_ternak') is-invalid @enderror" autocomplete="off">
+                                        @error('total_ternak')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -122,11 +155,11 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="total_ternak">
-                                            Total Ternak
+                                        <label for="usia_ternak">
+                                            Usia Ternak
                                         </label>
-                                        <input type="number" id="total_ternak" name="total_ternak" value="{{ old('total_ternak') }}" class="form-control @error('total_ternak') is-invalid @enderror" autocomplete="off">
-                                        @error('total_ternak')
+                                        <input type="number" min="1" step="1" id="usia_ternak" name="usia_ternak" value="{{ old('usia_ternak') }}" class="form-control @error('usia_ternak') is-invalid @enderror" autocomplete="off">
+                                        @error('usia_ternak')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -147,6 +180,17 @@
 @endsection
 
 @push('page-scripts')
+<script src="{{ asset('../assets/modules/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('../assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+@endpush
+
+@push('page-spesific-scripts')
+<script src="{{ asset('../assets/js/page/modules-datatables.js') }}"></script>
+@endpush
+
+{{-- @push('page-scripts')
 <script src="{{ asset('../assets/modules/sweetalert/sweetalert.min.js') }}"></script>
 @endpush
 
@@ -173,4 +217,4 @@
         });
     });
 </script>
-@endpush
+@endpush --}}

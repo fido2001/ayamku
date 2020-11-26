@@ -17,9 +17,11 @@ class ProgressDetailController extends Controller
     public function index($id)
     {
         $user_id = auth()->user()->id;
+
         $progress = Progress::join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->where('data_progress.id', '=', $id)->select('data_progress.*')->get();
-        $progressDetail = ProgressDetail::join('data_progress', 'data_progress.id', '=', 'progress_detail.id_progress')->join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('progress_detail.*', 'data_progress.*', 'kandang.kode')->get();
-        // dd($progressDetail);
+
+        $progressDetail = ProgressDetail::join('data_progress', 'data_progress.id', '=', 'progress_detail.id_progress')->join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->where('data_progress.id', '=', $id)->select('progress_detail.*', 'data_progress.*', 'kandang.kode')->get();
+
         return view('progress.progress-detail', [
             'progressDetail' => $progressDetail,
             'dataProgress' => $progress

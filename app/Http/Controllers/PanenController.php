@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kategori;
 use App\Panen;
+use App\Progress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,14 @@ class PanenController extends Controller
      */
     public function index()
     {
-        // Carbon::setTestNow('2020-12-26');
+        Carbon::setTestNow('2020-12-20');
+
         $user_id = auth()->user()->id;
-        $panen = DB::table('data_panen as panen')->join('data_progress as progress', 'panen.id_progress', '=', 'progress.id')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('panen.*')->get();
-        $progress = DB::table('data_progress as progress')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'progress.sisa_ternak', 'progress.id', 'progress.tgl_selesai')->get();
+
+        $panen = Panen::join('kategori', 'kategori.id', '=', 'data_panen.id_kategori')->join('data_progress as progress', 'data_panen.id_progress', '=', 'progress.id')->join('kandang', 'progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('data_panen.*', 'kategori.bobot')->get();
+
+        $progress = Progress::join('kandang', 'data_progress.id_kandang', '=', 'kandang.id')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('kandang.kode', 'data_progress.sisa_ternak', 'data_progress.id', 'data_progress.tgl_selesai')->get();
+
         // dd($panen, $progress);
         $dataKategori = Kategori::get();
         return view('panen.index', compact('panen', 'progress', 'dataKategori'));
@@ -44,14 +49,19 @@ class PanenController extends Controller
      */
     public function store(Request $request)
     {
+        // Carbon::setTestNow('2020-12-20');
+        // $data = $request->all();
+        // dd($data);
         $this->_validation($request);
+
+        $tgl_panen = Carbon::now()->setTimezone('Asia/Jakarta');
 
         $panen = Panen::create([
             'id_progress' => $request->id_progress,
             'id_kategori' => $request->id_kategori,
-            'lama_panen' => $request->lama_panen,
+            'usia_ternak' => $request->usia_ternak,
             'total_ternak' => $request->total_ternak,
-            'tanggal' => date('Y-m-d')
+            'tanggal' => $tgl_panen
         ]);
 
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
@@ -120,14 +130,14 @@ class PanenController extends Controller
             [
                 'id_progress' => 'required',
                 'id_kategori' => 'required',
-                'lama_panen' => 'required|numeric',
+                'usia_ternak' => 'required|numeric',
                 'total_ternak' => 'required|numeric'
             ],
             [
                 'id_progress.required' => 'Data tidak boleh kosong, harap diisi. Atau belum masuk waktu panen',
                 'id_kategori.required' => 'Data tidak boleh kosong, harap diisi',
-                'lama_panen.required' => 'Data tidak boleh kosong, harap diisi',
-                'lama_panen.numeric' => 'Data harus angka',
+                'usia_ternak.required' => 'Data tidak boleh kosong, harap diisi',
+                'usia_ternak.numeric' => 'Data harus angka',
                 'total_ternak.required' => 'Data tidak boleh kosong, harap diisi',
                 'total_ternak.numeric' => 'Data harus angka',
             ]
