@@ -229,7 +229,7 @@ gtag('config', 'UA-94034622-3');
                 <img alt="image" src="{{ asset('../assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-title">Logged in 5 min ago</div>
+                    <div class="dropdown-title">Masuk {{ Auth::user()->authenticated_at->diffForHumans() }}</div>
                     @if (Request::segment(1) != 'admin')
                         <a href="@if (Request::segment(1) == 'peternak')
                                     {{ route('profile.Peternak') }}
@@ -239,12 +239,12 @@ gtag('config', 'UA-94034622-3');
                             <i class="far fa-user"></i> Profile
                         </a>
                     @endif
-                    <a href="features-activities.html" class="dropdown-item has-icon">
+                    {{-- <a href="features-activities.html" class="dropdown-item has-icon">
                         <i class="fas fa-bolt"></i> Activities
                     </a>
                     <a href="features-settings.html" class="dropdown-item has-icon">
                         <i class="fas fa-cog"></i> Settings
-                    </a>
+                    </a> --}}
                     <div class="dropdown-divider"></div>
                     <a href="" class="dropdown-item has-icon text-danger" data-toggle="modal" data-target="#exampleModalOut">
                         <i class="fas fa-sign-out-alt"></i>Logout
@@ -288,7 +288,7 @@ gtag('config', 'UA-94034622-3');
     </div>
     <footer class="main-footer">
         <div class="footer-left">
-            Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+            <div class="bullet"></div>PPL A - Kelompok F<div class="bullet"></div>
         </div>
         <div class="footer-right">
         

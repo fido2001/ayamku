@@ -52,7 +52,7 @@
                                 <td>{{ $progress->getTanggalMulai() }}</td>
                                 <td>{{ $progress->getTanggalSelesai() }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                                    {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a> --}}
                                     <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
                                 </td>
                             </tr>

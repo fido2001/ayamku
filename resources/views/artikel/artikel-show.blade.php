@@ -19,6 +19,7 @@
                 </div>
                 <hr>
                 <p>{!! nl2br($artikel->body) !!}</p>
+                <a href="/peternak/artikel">Kembali</a>
             </div>
         </div>
     </div>

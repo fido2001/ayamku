@@ -112,7 +112,7 @@
                                         <select name="id_progress" id="progress" class="form-control @error('id_progress') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
                                             @foreach ($progress as $prg)
-                                            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') >= Carbon\Carbon::parse($prg->tgl_selesai)->addDays(-7))
+                                            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') >= Carbon\Carbon::parse($prg->tgl_selesai)->addDays(-1))
                                             <option value="{{ $prg->id }}">Kode Kandang : {{ $prg->kode }} | Sisa Ternak : {{ $prg->sisa_ternak }}</option>
                                             @endif
                                             @endforeach
