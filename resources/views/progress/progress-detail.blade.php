@@ -11,10 +11,6 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3>Data Detail Progress</h3>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Tambah Progress
-            </button>
         </div>
         @if (session('success'))
         <div class="card-body">
@@ -30,43 +26,16 @@
         @endif
         <div class="card-body">
             @foreach ($dataProgress as $dtProgress)
+            @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') <= $dtProgress->tgl_selesai)
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+                Tambah Progress
+            </button>
+            @endif
             <h6>Lama Siklus : {{ $dtProgress->lama_siklus }} Hari</h6>
             <h6>Tanggal Mulai : {{ $dtProgress->getTanggalMulai() }}</h6>
             <h6>Tanggal Selesai : {{ $dtProgress->getTanggalSelesai() }}</h6>
             <h6>Sisa Ternak Sementara : {{ $dtProgress->sisa_ternak }} Ekor</h6>
             @endforeach
-            {{-- <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Ternak Sehat</th>
-                    <th scope="col">Ternak Sakit</th>
-                    <th scope="col">Tanggal Progress</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($progressDetail as $no => $progress)
-                    <tr>
-                        <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $progress->ternak_sehat }} Ekor</td>
-                        <td>{{ $progress->ternak_sakit }} Ekor</td>
-                        <td>{{ $progress->getTanggalProgress() }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
-                            <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
-                            <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
-                                <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                </form>
-                                Hapus
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
             <div class="table-responsive">
                 <table class="table table-striped" id="table-1">
                     <thead>                                 

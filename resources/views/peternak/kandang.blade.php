@@ -175,7 +175,7 @@
         x=0;
         else if(Number.isNaN(y))
         y=0;
-        document.getElementById('rekom').value = (x*y)*7;
+        document.getElementById('rekom').value = (x*y)*8;
     });
 </script>
 @endpush

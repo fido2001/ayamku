@@ -18,6 +18,8 @@ class ProgressController extends Controller
      */
     public function index()
     {
+        // Carbon::setTestNow('2020-12-26');
+
         $user_id = auth()->user()->id;
         $kandang = Kandang::where('user_id', auth()->user()->id)->get();
         $progress = Progress::join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->select('data_progress.*', 'kandang.kode')->get();
@@ -45,21 +47,37 @@ class ProgressController extends Controller
      */
     public function store(Request $request)
     {
+        Carbon::setTestNow('2020-12-27');
+
         $this->_validation($request);
 
-        $tgl_mulai = Carbon::now()->setTimezone('Asia/Jakarta');
+        $tgl_mulai = Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d');
 
         $tgl_selesai = Carbon::now()->setTimezone('Asia/Jakarta')->addDays($request->lama_siklus);
 
-        $progress = Progress::create([
-            'id_kandang' => $request->id_kandang,
-            'sisa_ternak' => $request->sisa_ternak,
-            'tgl_mulai' => $tgl_mulai,
-            'tgl_selesai' => $tgl_selesai,
-            'lama_siklus' => $request->lama_siklus
-        ]);
+        $progress_exist = Progress::where([
+            ['id_kandang', '=', $request->id_kandang],
+            ['tgl_mulai', '=', $tgl_mulai],
+            ['lama_siklus', '=', $request->lama_siklus]
+        ])->get();
 
-        return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
+        $progress_berjalan = Progress::where('id_kandang', '=', $request->id_kandang)
+            ->where('tgl_mulai', '<=', $tgl_mulai)
+            ->where('tgl_selesai', '>=', $tgl_mulai)
+            ->get();
+        if (count($progress_berjalan) > 0 or count($progress_exist) > 0) {
+            return redirect()->back()->with('warning', 'Silakan menyelesaikan progress yang ada.');
+        } else {
+            $progress = Progress::create([
+                'id_kandang' => $request->id_kandang,
+                'sisa_ternak' => $request->sisa_ternak,
+                'tgl_mulai' => $tgl_mulai,
+                'tgl_selesai' => $tgl_selesai,
+                'lama_siklus' => $request->lama_siklus
+            ]);
+
+            return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
+        }
     }
 
     /**

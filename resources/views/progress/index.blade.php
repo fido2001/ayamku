@@ -27,6 +27,17 @@
                 </div>
             </div>
         </div>
+        @elseif(session('warning'))
+        <div class="card-body">
+            <div class="alert alert-warning alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('warning') }}
+                </div>
+            </div>
+        </div>
         @endif
         <div class="card-body">
             <div class="table-responsive">
@@ -52,8 +63,12 @@
                                 <td>{{ $progress->getTanggalMulai() }}</td>
                                 <td>{{ $progress->getTanggalSelesai() }}</td>
                                 <td class="text-center">
-                                    {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a> --}}
+                                    @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') >= $progress->tgl_selesai)
+                                    <a href="{{ route('panen.index') }}" class="badge badge-info">Panen</a>
                                     <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
+                                    @else
+                                    <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

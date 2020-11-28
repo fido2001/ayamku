@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.index');
     Route::resource('artikel', 'ArtikelController');
@@ -47,4 +51,4 @@ Route::prefix('distributor')->middleware('auth')->group(function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');

@@ -22,7 +22,7 @@
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
                         <label>Panjang Kandang</label>
-                        <input type="number" min="1" step="1" class="form-control @error('panjang') is-invalid @enderror" name="panjang" value="{{ $kandang->panjang }}">
+                        <input type="number" min="1" step="1" id="panjang" class="input form-control @error('panjang') is-invalid @enderror" name="panjang" value="{{ $kandang->panjang }}">
                         @error('panjang')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -33,12 +33,20 @@
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
                         <label>Lebar Kandang</label>
-                        <input type="number" min="1" step="1" class="form-control @error('lebar') is-invalid @enderror" name="lebar" value="{{ $kandang->lebar }}">
+                        <input type="number" min="1" step="1" id="lebar" class="input form-control @error('lebar') is-invalid @enderror" name="lebar" value="{{ $kandang->lebar }}">
                         @error('lebar')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-12">
+                        <label>
+                            Rekomendasi Jumlah Ternak
+                        </label>
+                        <input id="rekom" class="form-control" disabled>
                     </div>
                 </div>
                 <div class="row">                               
@@ -60,3 +68,22 @@
         </form>
     </div>
 @endsection
+
+@push('after-scripts')
+<script>
+    $(".input").on('input', function(){
+        
+        var x = document.getElementById('panjang').value;
+        x = parseFloat(x);
+        
+        var y = document.getElementById('lebar').value;
+        y = parseFloat(y);
+
+        if(Number.isNaN(x))
+        x=0;
+        else if(Number.isNaN(y))
+        y=0;
+        document.getElementById('rekom').value = (x*y)*8;
+    });
+</script>
+@endpush
