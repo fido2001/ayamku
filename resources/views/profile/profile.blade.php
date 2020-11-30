@@ -120,8 +120,8 @@
                 <div class="col-md-2">
                     <a href="@if (Request::segment(1) == 'admin')
                             {{ route('edit.profile.Admin') }}
-                        @elseif (Request::segment(1) == 'peternak')
-                            {{ route('edit.profile.Peternak') }}
+                        @elseif (Request::segment(1) == 'karyawan')
+                            {{ route('edit.profile.karyawan') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('edit.profile.Distributor') }}    
                         @endif" class="btn btn-secondary">Ubah Profil</a>
@@ -170,14 +170,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ $user->noHp }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Kecamatan</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $user->kecamatan->nama_kecamatan }}</p>
                                 </div>
                             </div>
                             <div class="row">

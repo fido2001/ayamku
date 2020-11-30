@@ -25,7 +25,7 @@
                 <article class="article article-style-c">
                     @if ($art->thumbnail)
                     <a href="@if(Request::segment(1) == 'admin') {{ route('artikel.edit.admin', $art->slug) }}
-                            @elseif(Request::segment(1) == 'peternak') {{ route('artikel.show.peternak', $art->slug) }}  
+                            @elseif(Request::segment(1) == 'distributor') {{ route('artikel.show.distributor', $art->slug) }}  
                             @endif">
                         <div class="article-header">
                             <div class="article-image" data-background="{{ $art->takeImage() }}">
@@ -37,7 +37,7 @@
                         <div class="article-category"><a>Dibuat {{ $art->created_at->diffForHumans() }}</a></div>
                         <div class="article-title">
                         <h2><a href="@if(Request::segment(1) == 'admin') {{ route('artikel.edit.admin', $art->slug) }}
-                            @elseif(Request::segment(1) == 'peternak') {{ route('artikel.show.peternak', $art->slug) }}  
+                            @elseif(Request::segment(1) == 'distributor') {{ route('artikel.show.distributor', $art->slug) }}  
                             @endif">{{ $art->title }}</a></h2>
                         </div>
                         <p>{!! Str::limit(nl2br($art->body), 100) !!}</p>
@@ -67,76 +67,3 @@
     </div>
 </div>
 @endsection
-
-    {{-- @if (session('success'))
-        <div class="card-body">
-            <div class="alert alert-success alert-dismissible show fade">
-                <div class="alert-body">
-                    <button class="close" data-dismiss="alert">
-                        <span>&times;</span>
-                    </button>
-                    {{ session('success') }}
-                </div>
-            </div>
-        </div>
-        @endif
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Judul Artikel</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($artikel as $no => $art)
-                    <tr>
-                        <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $art->title }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('artikel.edit', $art->id) }}" class="badge badge-info btn-edit">Edit</a>
-                            <a href="#" data-id="{{ $art->id }}" class="badge badge-danger swal-confirm">
-                                <form action="{{ route('kecamatan.destroy', $art->id) }}" id="delete{{ $art->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                </form>
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        {{ $artikel->links() }}
-
-
-@push('page-scripts')
-<script src="{{ asset('../assets/modules/sweetalert/sweetalert.min.js') }}"></script>
-@endpush
-
-@push('after-scripts')
-<script>
-    $(".swal-confirm").click(function(e) {
-        id = e.target.dataset.id;
-        swal({
-            title: 'Yakin hapus data?',
-            text: 'Data yang sudah dihapus tidak bisa dikembalikan!',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal('Poof! File anda berhasil dihapus!', {
-                icon: 'success',
-                });
-                $(`#delete${id}`).submit();
-            } else {
-                // swal('Your imaginary file is safe!');
-            }
-        });
-    });
-</script>
-@endpush --}}

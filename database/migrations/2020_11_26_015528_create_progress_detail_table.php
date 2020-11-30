@@ -17,16 +17,19 @@ class CreateProgressDetailTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_progress');
             $table->unsignedBigInteger('id_vitamin')->nullable();
-            $table->integer('ternak_sehat');
-            $table->integer('ternak_sakit');
+            $table->unsignedBigInteger('id_kategori');
+            $table->integer('banyak_telur')->nullable();
+            $table->integer('jumlah_ternak');
+            $table->integer('ternak_mati')->default(0);
+            $table->integer('jumlah_pakan');
             $table->text('perkembangan');
             $table->date('tgl_progress');
-            $table->text('keluhan')->nullable();
-            $table->text('saran')->nullable();
+            $table->string('ket_waktu');
             $table->timestamps();
 
-            $table->foreign('id_progress')->references('id')->on('data_progress')->onDelete('cascade');
+            $table->foreign('id_progress')->references('id')->on('progress')->onDelete('cascade');
             $table->foreign('id_vitamin')->references('id')->on('vitamin')->onDelete('cascade');
+            $table->foreign('id_kategori')->references('id')->on('kategori')->onDelete('cascade');
         });
     }
 

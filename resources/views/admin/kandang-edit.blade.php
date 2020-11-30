@@ -10,13 +10,29 @@
             <div class="card-body">
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
-                        <label>Kode Kandang</label>
-                        <input type="text" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ $kandang->kode }}">
-                        @error('kode')
+                        <label>Nama Kandang</label>
+                        <input type="text" class="form-control @error('nama_kandang') is-invalid @enderror" name="nama_kandang" value="{{ $kandang->nama_kandang }}">
+                        @error('nama_kandang')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <label for="jenis_kandang">Jenis Kandang</label>
+                            <select name="jenis_kandang" class="form-control" id="jenis_kandang">
+                                <option value="Pembibitan">Pembibitan</option>
+                                <option value="Produksi">Produksi</option>              
+                            </select>
+                            @error('jenis_kandang')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="row">                               
@@ -41,19 +57,11 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6 col-12">
-                        <label>
-                            Rekomendasi Jumlah Ternak
-                        </label>
-                        <input id="rekom" class="form-control" disabled>
-                    </div>
-                </div>
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
-                        <label>Jumlah Ternak</label>
-                        <input type="number" min="1" step="1" class="form-control @error('jumlahBibit') is-invalid @enderror" name="jumlahBibit" value="{{ $kandang->jumlahBibit }}">
-                        @error('jumlahBibit')
+                        <label>Jumlah Koloni</label>
+                        <input type="number" min="1" step="1" class="form-control @error('jumlah_koloni') is-invalid @enderror" name="jumlah_koloni" value="{{ $kandang->jumlah_koloni }}">
+                        @error('jumlah_koloni')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -68,22 +76,3 @@
         </form>
     </div>
 @endsection
-
-@push('after-scripts')
-<script>
-    $(".input").on('input', function(){
-        
-        var x = document.getElementById('panjang').value;
-        x = parseFloat(x);
-        
-        var y = document.getElementById('lebar').value;
-        y = parseFloat(y);
-
-        if(Number.isNaN(x))
-        x=0;
-        else if(Number.isNaN(y))
-        y=0;
-        document.getElementById('rekom').value = (x*y)*8;
-    });
-</script>
-@endpush

@@ -36,8 +36,8 @@
                             <th class="text-center">No</th>
                             <th scope="col">Harga Produk</th>
                             <th scope="col">Jumlah Produk</th>
+                            <th scope="col">Tanggal Produk</th>
                             <th scope="col">Kategori</th>
-                            <th scope="col">Tanggal Panen</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -45,10 +45,15 @@
                         @foreach ($dataProduk as $no => $produk)
                             <tr>
                                 <th scope="row">{{ $no+1 }}</th>
+                                @if ($produk->nama_produk == "Telur")
+                                <td>Rp. {{ $produk->harga }}/Kg</td>
+                                <td>{{ $produk->jumlah_produk }} Kg</td>
+                                @else
                                 <td>Rp. {{ $produk->harga }}/Ekor</td>
                                 <td>{{ $produk->jumlah_produk }} Ekor</td>
-                                <td>{{ $produk->bobot }}</td>
-                                <td>{{ Carbon\Carbon::parse($produk->tanggal)->translatedFormat('l, d F Y') }}</td>
+                                @endif
+                                <td>{{ Carbon\Carbon::parse($produk->tgl_produk)->translatedFormat('l, d F Y') }}</td>
+                                <td>{{ $produk->nama_produk }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('produk.edit', $produk->id) }}" class="badge badge-info btn-edit">Ubah</a>
                                     <a href="#" data-id="{{ $produk->id }}" class="badge badge-danger swal-confirm">
@@ -84,14 +89,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="panen">Data Panen</label>
-                                        <select name="id_panen" id="panen" class="form-control @error('id_panen') is-invalid @enderror">
+                                        <label for="progress">Data Progress Detail</label>
+                                        <select name="id_progress_detail" id="progress" class="form-control @error('id_progress_detail') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
-                                            @foreach ($panen as $pan)
-                                            <option value="{{ $pan->id }}">Tanggal Panen : {{ $pan->getTanggal() }} | Bobot : {{ $pan->bobot }}</option>
+                                            @foreach ($dataProgress as $progress)
+                                            @if ($progress->banyak_telur != null)
+                                            <option value="{{ $progress->id }}">Tanggal Progress : {{ Carbon\Carbon::parse($progress->tgl_progress)->translatedFormat('l, d F Y') }} | Banyak Telur : {{ $progress->banyak_telur }}</option>
+                                            @endif
                                             @endforeach
                                         </select>
-                                        @error('id_panen')
+                                        @error('id_progress_detail')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -101,12 +108,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="panen">Jumlah Produk</label>
-                                        <select name="jumlah_produk" id="panen" class="form-control @error('jumlah_produk') is-invalid @enderror">
-                                            <option disabled selected>Pilih Salah Satu</option>
-                                            @foreach ($panen as $pan)
-                                            <option value="{{ $pan->total_ternak }}">Jumlah Ternak : {{ $pan->total_ternak }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="number" min="1" step="1" name="jumlah_produk" id="panen" class="form-control @error('jumlah_produk') is-invalid @enderror">
                                         @error('jumlah_produk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -121,6 +123,20 @@
                                         </label>
                                         <input type="number" min="1" step="1" id="harga" name="harga" value="{{ old('harga') }}" class="form-control @error('harga') is-invalid @enderror" autocomplete="off">
                                         @error('harga')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nama_produk">Kategori Produk</label>
+                                        <select name="nama_produk" class="form-control" id="nama_produk">
+                                            <option value="Telur">Telur</option>
+                                            <option value="Avkir">Avkir</option>              
+                                        </select>
+                                        @error('nama_produk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

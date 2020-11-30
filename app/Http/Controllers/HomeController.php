@@ -17,8 +17,8 @@ class HomeController extends Controller
             return redirect('admin');
         }
 
-        if ($request->user()->hasRole('Peternak')) {
-            return redirect('peternak');
+        if ($request->user()->hasRole('Karyawan')) {
+            return redirect('karyawan');
         }
 
         if ($request->user()->hasRole('Distributor')) {

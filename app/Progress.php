@@ -7,8 +7,8 @@ use Illuminate\Support\Carbon;
 
 class Progress extends Model
 {
-    protected $table = 'data_progress';
-    protected $fillable = ['id_kandang', 'sisa_ternak', 'tgl_mulai', 'tgl_selesai', 'lama_siklus'];
+    protected $table = 'progress';
+    protected $fillable = ['id_kandang', 'kategori', 'tgl_mulai', 'tgl_selesai', 'lama_siklus'];
 
     public function kandang()
     {

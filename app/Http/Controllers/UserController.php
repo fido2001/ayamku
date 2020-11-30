@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Kecamatan;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +13,6 @@ class UserController extends Controller
     {
         return view('profile.profile', [
             'user' => Auth::user(),
-            'kecamatan' => Kecamatan::get(),
             'role' => Role::get()
         ]);
     }
@@ -23,7 +21,6 @@ class UserController extends Controller
     {
         return view('profile.profile-edit', [
             'user' => Auth::user(),
-            'kecamatan' => Kecamatan::get(),
             'role' => Role::get()
         ]);
     }
@@ -33,7 +30,6 @@ class UserController extends Controller
         $this->validator($request);
         $user = Auth::user();
         $attr = $request->all();
-        $attr['kecamatan_id'] = request('kecamatan');
         $user->update($attr);
         return back();
     }

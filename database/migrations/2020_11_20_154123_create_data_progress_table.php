@@ -13,10 +13,10 @@ class CreateDataProgressTable extends Migration
      */
     public function up()
     {
-        Schema::create('data_progress', function (Blueprint $table) {
+        Schema::create('progress', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_kandang');
-            $table->integer('sisa_ternak')->nullable();
+            $table->string('kategori', 20);
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
             $table->integer('lama_siklus');
@@ -33,6 +33,6 @@ class CreateDataProgressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_progress');
+        Schema::dropIfExists('progress');
     }
 }

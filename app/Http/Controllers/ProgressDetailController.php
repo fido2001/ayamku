@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Kategori;
 use App\Progress;
 use App\ProgressDetail;
+use App\Vitamin;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -16,15 +18,21 @@ class ProgressDetailController extends Controller
      */
     public function index($id)
     {
-        $user_id = auth()->user()->id;
+        $progress = Progress::join('kandang', 'kandang.id', '=', 'progress.id_kandang')->where('progress.id', '=', $id)->select('progress.*')->get();
 
-        $progress = Progress::join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->where('data_progress.id', '=', $id)->select('data_progress.*')->get();
+        $progressDetail = ProgressDetail::join('progress', 'progress.id', '=', 'progress_detail.id_progress')->join('kandang', 'kandang.id', '=', 'progress.id_kandang')->where('progress.id', '=', $id)->select('progress_detail.*', 'progress.*', 'kandang.*')->get();
 
-        $progressDetail = ProgressDetail::join('data_progress', 'data_progress.id', '=', 'progress_detail.id_progress')->join('kandang', 'kandang.id', '=', 'data_progress.id_kandang')->join('users', 'kandang.user_id', '=', 'users.id')->where('users.id', '=', $user_id)->where('data_progress.id', '=', $id)->select('progress_detail.*', 'data_progress.*', 'kandang.kode')->get();
+        // dd($progress, $progressDetail);
+
+        $vitamin = Vitamin::get();
+
+        $kategori = Kategori::get();
 
         return view('progress.progress-detail', [
             'progressDetail' => $progressDetail,
-            'dataProgress' => $progress
+            'dataProgress' => $progress,
+            'dataVitamin' => $vitamin,
+            'dataKategori' => $kategori
         ]);
     }
 
@@ -52,11 +60,15 @@ class ProgressDetailController extends Controller
 
         $progress = ProgressDetail::create([
             'id_progress' => $request->id_progress,
-            'ternak_sehat' => $request->ternak_sehat,
-            'ternak_sakit' => $request->ternak_sakit,
+            'id_vitamin' => $request->id_vitamin,
+            'id_kategori' => $request->id_kategori,
+            'banyak_telur' => $request->banyak_telur,
+            'jumlah_ternak' => $request->jumlah_ternak,
+            'jumlah_pakan' => $request->jumlah_pakan,
+            'ternak_mati' => $request->ternak_mati,
+            'ket_waktu' => $request->ket_waktu,
             'tgl_progress' => $tgl_progress,
-            'perkembangan' => $request->perkembangan,
-            'keluhan' => $request->keluhan
+            'perkembangan' => $request->perkembangan
         ]);
 
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
@@ -111,13 +123,13 @@ class ProgressDetailController extends Controller
     {
         $validation = $request->validate(
             [
-                'ternak_sehat' => 'required|integer|between:1,99999',
-                'ternak_sakit' => 'required|integer|between:1,99999',
+                'jumlah_ternak' => 'required|integer|between:1,9999',
+                'ternak_mati' => 'required|integer|between:1,9999',
                 'perkembangan' => 'required'
             ],
             [
-                'ternak_sehat.required' => 'Data tidak boleh kosong, harap diisi',
-                'ternak_sakit.required' => 'Data tidak boleh kosong, harap diisi',
+                'jumlah_ternak.required' => 'Data tidak boleh kosong, harap diisi',
+                'ternak_mati.required' => 'Data tidak boleh kosong, harap diisi',
                 'perkembangan.required' => 'Data tidak boleh kosong, harap diisi'
             ]
         );

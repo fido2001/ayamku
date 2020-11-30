@@ -231,8 +231,8 @@ gtag('config', 'UA-94034622-3');
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-title">Masuk {{ Auth::user()->authenticated_at->diffForHumans() }}</div>
                     @if (Request::segment(1) != 'admin')
-                        <a href="@if (Request::segment(1) == 'peternak')
-                                    {{ route('profile.Peternak') }}
+                        <a href="@if (Request::segment(1) == 'karyawan')
+                                    {{ route('profile.karyawan') }}
                                 @elseif (Request::segment(1) == 'distributor')
                                     {{ route('profile.Distributor') }}    
                                 @endif" class="dropdown-item has-icon">

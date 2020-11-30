@@ -27,7 +27,7 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Kriteria Bobot</th>
+                    <th scope="col">Jenis Ternak</th>
                     <th scope="col" class="text-center">Aksi</th>
                 </tr>
                 </thead>
@@ -35,7 +35,7 @@
                 @foreach ($kategori as $no => $ktg)
                     <tr>
                         <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $ktg->bobot }}</td>
+                        <td>{{ $ktg->jenis_ternak }}</td>
                         <td class="text-center">
                             <a href="{{ route('kategori.edit', $ktg->id) }}" class="badge badge-info btn-edit">Ubah</a>
                             <a href="#" data-id="{{ $ktg->id }}" class="badge badge-danger swal-confirm">
@@ -71,10 +71,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>
-                                            Kriteria Bobot
+                                            Jenis Ternak
                                         </label>
-                                        <input type="text" name="bobot" value="{{ old('bobot') }}" class="form-control @error('bobot') is-invalid @enderror" autocomplete="off">
-                                        @error('bobot')
+                                        <input type="text" name="jenis_ternak" value="{{ old('jenis_ternak') }}" class="form-control @error('jenis_ternak') is-invalid @enderror" autocomplete="off">
+                                        @error('jenis_ternak')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

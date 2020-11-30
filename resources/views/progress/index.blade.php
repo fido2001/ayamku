@@ -45,8 +45,8 @@
                     <thead>                                 
                         <tr>
                             <th class="text-center">No</th>
-                            <th scope="col">Kode Kandang</th>
-                            <th scope="col">Sisa Ternak</th>
+                            <th scope="col">Nama Kandang</th>
+                            <th scope="col">Kategori</th>
                             <th scope="col">Lama Siklus</th>
                             <th scope="col">Tanggal Mulai</th>
                             <th scope="col">Tanggal Selesai</th>
@@ -57,8 +57,8 @@
                         @foreach ($dataProgress as $no => $progress)
                             <tr>
                                 <th scope="row">{{ $no+1 }}</th>
-                                <td>{{ $progress->kode }}</td>
-                                <td>{{ $progress->sisa_ternak }} Ekor</td>
+                                <td>{{ $progress->nama_kandang }}</td>
+                                <td>{{ $progress->kategori }}</td>
                                 <td>{{ $progress->lama_siklus }} Hari</td>
                                 <td>{{ $progress->getTanggalMulai() }}</td>
                                 <td>{{ $progress->getTanggalSelesai() }}</td>
@@ -99,7 +99,7 @@
                                         <select name="id_kandang" id="kandang" class="form-control @error('id_kandang') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
                                             @foreach ($dataKandang as $kandang)
-                                                <option value="{{ $kandang->id }}">{{ $kandang->kode }} , Jumlah Bibit : {{ $kandang->jumlahBibit }}</option>
+                                                <option value="{{ $kandang->id }}">{{ $kandang->nama_kandang }} , Kategori : {{ $kandang->jenis_kandang }}</option>
                                             @endforeach
                                         </select>
                                         @error('id_kandang')
@@ -111,24 +111,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="lebar">
-                                            Sisa Ternak
-                                        </label>
-                                        <input type="number" min="1" step="1" id="sisa_ternak" name="sisa_ternak" value="{{ old('sisa_ternak') }}" class="form-control @error('sisa_ternak') is-invalid @enderror" autocomplete="off">
-                                        @error('sisa_ternak')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="lebar">
-                                            Lama Siklus (Hari)
-                                        </label>
-                                        <input type="number" min="1" step="1" id="lama_siklus" name="lama_siklus" value="{{ old('lama_siklus') }}" class="form-control @error('lama_siklus') is-invalid @enderror" autocomplete="off">
-                                        @error('lama_siklus')
+                                        <label for="kategori">Kategori Progress</label>
+                                        <select name="kategori" class="form-control" id="kategori">
+                                            <option value="Pembibitan">Pembibitan</option>
+                                            <option value="Produksi">Produksi</option>              
+                                        </select>
+                                        @error('kategori')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

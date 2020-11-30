@@ -15,12 +15,14 @@ class CreateProdukTable extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_panen');
+            $table->unsignedBigInteger('id_progress_detail');
+            $table->string('nama_produk');
             $table->integer('harga');
             $table->integer('jumlah_produk');
+            $table->date('tgl_produk');
             $table->timestamps();
 
-            $table->foreign('id_panen')->references('id')->on('data_panen')->onDelete('cascade');
+            $table->foreign('id_progress_detail')->references('id')->on('progress')->onDelete('cascade');
         });
     }
 

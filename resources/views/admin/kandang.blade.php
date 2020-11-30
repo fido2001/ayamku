@@ -34,10 +34,11 @@
                     <thead>                                 
                         <tr>
                             <th class="text-center">No</th>
-                            <th scope="col">Kode Kandang</th>
-                            <th scope="col">Panjang Kandang</th>
-                            <th scope="col">Lebar Kandang</th>
-                            <th scope="col">Jumlah Ternak</th>
+                            <th scope="col">Nama Kandang</th>
+                            <th scope="col">Panjang</th>
+                            <th scope="col">Lebar</th>
+                            <th scope="col">Jenis Kandang</th>
+                            <th scope="col">Jumlah Koloni</th>
                             <th scope="col" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -47,10 +48,11 @@
                             <td class="text-center">
                                 {{ $no+1 }}
                             </td>
-                            <td>{{ $kdg->kode }}</td>
+                            <td>{{ $kdg->nama_kandang }}</td>
                             <td>{{ $kdg->panjang }} Meter</td>
                             <td>{{ $kdg->lebar }} Meter</td>
-                            <td>{{ $kdg->jumlahBibit }} Ekor</td>
+                            <td>{{ $kdg->jenis_kandang }}</td>
+                            <td>{{ $kdg->jumlah_koloni }}</td>
                             <td class="text-center">
                                 <a href="{{ route('kandang.edit', $kdg->id) }}" class="badge badge-info btn-edit">Ubah</a>
                             </td>
@@ -80,10 +82,24 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>
-                                            Kode Kandang
+                                            Nama Kandang
                                         </label>
-                                        <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('kode') is-invalid @enderror" autocomplete="off">
-                                        @error('kode')
+                                        <input type="text" name="nama_kandang" value="{{ old('nama_kandang') }}" class="form-control @error('nama_kandang') is-invalid @enderror" autocomplete="off">
+                                        @error('nama_kandang')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="jenis_kandang">Jenis Kandang</label>
+                                        <select name="jenis_kandang" class="form-control" id="jenis_kandang">
+                                            <option value="Pembibitan">Pembibitan</option>
+                                            <option value="Produksi">Produksi</option>              
+                                        </select>
+                                        @error('jenis_kandang')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -119,18 +135,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>
-                                            Rekomendasi Jumlah Ternak
+                                            Jumlah Koloni
                                         </label>
-                                        <input id="rekom" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>
-                                            Jumlah Bibit Ternak
-                                        </label>
-                                        <input type="number" name="jumlahBibit" value="{{ old('jumlahBibit') }}" class="form-control @error('jumlahBibit') is-invalid @enderror" autocomplete="off">
-                                        @error('jumlahBibit')
+                                        <input type="number" name="jumlah_koloni" value="{{ old('jumlah_koloni') }}" class="form-control @error('jumlah_koloni') is-invalid @enderror" autocomplete="off">
+                                        @error('jumlah_koloni')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

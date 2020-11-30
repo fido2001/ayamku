@@ -8,7 +8,7 @@ class Kategori extends Model
 {
     protected $table = 'kategori';
 
-    protected $fillable = ['bobot'];
+    protected $fillable = ['jenis_ternak'];
 
     public function panen()
     {

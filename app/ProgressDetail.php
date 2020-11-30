@@ -9,7 +9,7 @@ class ProgressDetail extends Model
 {
     protected $table = 'progress_detail';
 
-    protected $fillable = ['id_progress', 'id_vitamin', 'ternak_sehat', 'ternak_sakit', 'perkembangan', 'tgl_progress', 'keluhan', 'saran'];
+    protected $fillable = ['id_progress', 'id_vitamin', 'id_kategori', 'banyak_telur', 'jumlah_ternak', 'ternak_mati', 'jumlah_pakan', 'perkembangan', 'tgl_progress', 'ket_waktu'];
 
     public function progress()
     {
@@ -19,6 +19,11 @@ class ProgressDetail extends Model
     public function vitamin()
     {
         return $this->belongsTo(Vitamin::class, 'id_vitamin');
+    }
+
+    public function produk()
+    {
+        return $this->hasMany(Produk::class, 'id_progress_detail');
     }
 
     public function getTanggalProgress()

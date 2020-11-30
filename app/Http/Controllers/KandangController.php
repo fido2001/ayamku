@@ -14,9 +14,8 @@ class KandangController extends Controller
      */
     public function index()
     {
-        $user_id = auth()->user()->id;
-        $kandang = Kandang::where('user_id', $user_id)->get();
-        return view('peternak.kandang', ['kandang' => $kandang]);
+        $kandang = Kandang::get();
+        return view('admin.kandang', ['kandang' => $kandang]);
     }
 
     /**
@@ -39,22 +38,22 @@ class KandangController extends Controller
     {
         request()->validate(
             [
-                'kode' => ['required'],
+                'nama_kandang' => ['required'],
                 'panjang' => ['required', 'integer', 'between:1,999'],
                 'lebar' => ['required', 'integer', 'between:1,999'],
-                'jumlahBibit' => ['required', 'integer', 'between:1,99999']
+                'jumlah_koloni' => ['required', 'integer', 'between:1,99999']
             ],
             [
-                'kode.required' => 'Data tidak boleh kosong, harap diisi!',
+                'nama_kandang.required' => 'Data tidak boleh kosong, harap diisi!',
                 'panjang.required' => 'Data tidak boleh kosong, harap diisi!',
                 'lebar.required' => 'Data tidak boleh kosong, harap diisi!',
-                'jumlahBibit.required' => 'Data tidak boleh kosong, harap diisi!',
+                'jumlah_koloni.required' => 'Data tidak boleh kosong, harap diisi!',
             ]
         );
 
         $attr = $request->all();
 
-        auth()->user()->kandang()->create($attr);
+        $kandang = Kandang::create($attr);
 
         session()->flash('success', 'Data Kandang berhasil ditambahkan.');
 
@@ -80,7 +79,7 @@ class KandangController extends Controller
      */
     public function edit(Kandang $kandang)
     {
-        return view('peternak.kandang-edit', compact('kandang'));
+        return view('admin.kandang-edit', compact('kandang'));
     }
 
     /**
@@ -94,24 +93,25 @@ class KandangController extends Controller
     {
         request()->validate(
             [
-                'kode' => ['required'],
+                'nama_kandang' => ['required'],
                 'panjang' => ['required', 'integer', 'between:1,999'],
                 'lebar' => ['required', 'integer', 'between:1,999'],
-                'jumlahBibit' => ['required', 'integer', 'between:1,99999']
+                'jumlah_koloni' => ['required', 'integer', 'between:1,99999']
             ],
             [
-                'kode.required' => 'Data tidak boleh kosong, harap diisi!',
+                'nama_kandang.required' => 'Data tidak boleh kosong, harap diisi!',
                 'panjang.required' => 'Data tidak boleh kosong, harap diisi!',
                 'lebar.required' => 'Data tidak boleh kosong, harap diisi!',
-                'jumlahBibit.required' => 'Data tidak boleh kosong, harap diisi!',
+                'jumlah_koloni.required' => 'Data tidak boleh kosong, harap diisi!',
             ]
         );
 
         Kandang::where('id', $id)->update([
-            'kode' => $request->kode,
+            'nama_kandang' => $request->nama_kandang,
+            'jenis_kandang' => $request->jenis_kandang,
             'panjang' => $request->panjang,
             'lebar' => $request->lebar,
-            'jumlahBibit' => $request->jumlahBibit
+            'jumlah_koloni' => $request->jumlah_koloni
         ]);
 
         return redirect()->route('kandang.index')->with('success', 'Data Berhasil Disimpan');

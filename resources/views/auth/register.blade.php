@@ -74,14 +74,9 @@ gtag('config', 'UA-94034622-3');
                                             @enderror
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="kecamatan">Kecamatan</label>
-                                            <select name="kecamatan" id="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror">
-                                                <option disabled selected>Pilih Salah Satu</option>
-                                                @foreach ($kecamatan as $kcm)
-                                                    <option value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('kecamatan')
+                                            <label for="noHp" class="d-block">Nomor HP</label>
+                                            <input id="noHp" type="text" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ old('noHp') }}">
+                                            @error('noHp')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -106,40 +101,6 @@ gtag('config', 'UA-94034622-3');
                                         <div class="form-group col-6">
                                             <label for="password-confirm" class="d-block">Konfirmasi Password</label>
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="noHp" class="d-block">Nomor HP</label>
-                                            <input id="noHp" type="text" class="form-control @error('noHp') is-invalid @enderror" name="noHp" value="{{ old('noHp') }}">
-                                            @error('noHp')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="role" class="d-block mb-3">Pilih Akun Anda</label>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="2" checked>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    Peternak
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="role" id="exampleRadios2" value="3">
-                                                <label class="form-check-label" for="exampleRadios2">
-                                                    Distributor
-                                                </label>
-                                            </div>
-                                            <div>
-                                                @error('role')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

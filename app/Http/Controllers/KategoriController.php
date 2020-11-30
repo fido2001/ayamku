@@ -74,7 +74,7 @@ class KategoriController extends Controller
     {
         $this->_validation($request);
         Kategori::where('id', $id)->update([
-            'bobot' => $request->bobot
+            'jenis_ternak' => $request->jenis_ternak
         ]);
 
         return redirect()->route('kategori.index')->with('success', 'Data Berhasil Disimpan');
@@ -96,12 +96,12 @@ class KategoriController extends Controller
     {
         $validation = $request->validate(
             [
-                'bobot' => 'required|max:50|min:3',
+                'jenis_ternak' => 'required|max:50|min:3',
             ],
             [
-                'bobot.required' => 'Data tidak boleh kosong, harap diisi',
-                'bobot.max' => 'Data tidak boleh melebihi 50 karakter',
-                'bobot.min' => 'Data minimal 3 karakter',
+                'jenis_ternak.required' => 'Data tidak boleh kosong, harap diisi',
+                'jenis_ternak.max' => 'Data tidak boleh melebihi 50 karakter',
+                'jenis_ternak.min' => 'Data minimal 3 karakter',
             ]
         );
     }

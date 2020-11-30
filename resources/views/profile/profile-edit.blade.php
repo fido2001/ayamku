@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <form method="post" action="@if (Request::fullUrl() == 'http://127.0.0.1:8000/peternak/myProfile')
-                    {{ route('edit.profile.Peternak', $user) }}
+        <form method="post" action="@if (Request::fullUrl() == 'http://127.0.0.1:8000/karyawan/myProfile')
+                    {{ route('edit.profile.karyawan', $user) }}
                 @elseif (Request::fullUrl() == 'http://127.0.0.1:8000/distributor/myProfile')
                     {{ route('edit.profile.Distributor', $user) }}    
                 @endif" class="needs-validation" novalidate="">
@@ -63,30 +63,16 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-6 col-12">
-                        <label>Kecamatan</label>
-                        <select name="kecamatan" id="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror">
-                            <option disabled selected>Pilih Salah Satu</option>
-                            @foreach ($kecamatan as $kcm)
-                                <option {{ $kcm->id == $user->kecamatan_id ? 'selected' : '' }} value="{{ $kcm->id }}">{{ $kcm->nama_kecamatan }}</option>
-                            @endforeach
-                        </select>
-                        @error('kecamatan')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
                 </div>
-                <a href="@if (Request::segment(1) == 'peternak')
-                            {{ route('edit.password.Peternak') }}
+                <a href="@if (Request::segment(1) == 'karyawan')
+                            {{ route('edit.password.karyawan') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('edit.password.Distributor') }}    
                         @endif" class="text-danger">Ganti Password</a>
             </div>
             <div class="card-footer text-right">
-                <a href="@if (Request::segment(1) == 'peternak')
-                            {{ route('profile.Peternak') }}
+                <a href="@if (Request::segment(1) == 'karyawan')
+                            {{ route('profile.karyawan') }}
                         @elseif (Request::segment(1) == 'distributor')
                             {{ route('profile.Distributor') }}    
                         @endif" class="btn btn-danger">Batal</a>

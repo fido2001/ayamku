@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Kecamatan;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Auth\Events\Registered;
@@ -25,9 +24,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register', [
-            'kecamatan' => Kecamatan::get()
-        ]);
+        return view('auth.register');
     }
 
     protected function validator(array $data)
@@ -40,9 +37,7 @@ class RegisterController extends Controller
                 'noHp' => ['required', 'regex:/^(08)[0-9]*/', 'max:13', 'min:10'],
                 'alamat' => ['required', 'max:100'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
-                'role' => ['required'],
-                'kecamatan' => ['required']
+                'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed']
             ],
             [
                 'name.string' => 'Nama Lengkap Harus berupa huruf',
@@ -52,8 +47,6 @@ class RegisterController extends Controller
                 'alamat.required' => 'Data tidak boleh kosong, harap diisi',
                 'email.required' => 'Data tidak boleh kosong, harap diisi',
                 'password.required' => 'Data tidak boleh kosong, harap diisi',
-                'role.required' => 'Data tidak boleh kosong, harap diisi',
-                'kecamatan.required' => 'Data tidak boleh kosong, harap diisi',
                 'password.min' => 'Minimal 8 karakter',
                 'password.confirmed' => 'Masukkan konfirmasi password yang valid',
                 'email.email' => 'Masukkan Email yang valid.',
@@ -72,11 +65,10 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'username' => $data['username'],
-            'kecamatan_id' => $data['kecamatan'],
             'noHp' => $data['noHp'],
             'alamat' => $data['alamat'],
             'email' => $data['email'],
-            'id_role' => $data['role'],
+            'id_role' => 3,
             'password' => Hash::make($data['password']),
         ]);
 

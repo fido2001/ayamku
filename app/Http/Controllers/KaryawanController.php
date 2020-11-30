@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PeternakController extends Controller
+class KaryawanController extends Controller
 {
     public function __construct()
     {
@@ -13,8 +13,8 @@ class PeternakController extends Controller
 
     public function index()
     {
-        if (request()->user()->hasRole('Peternak')) {
-            return view('peternak.index');
+        if (request()->user()->hasRole('Karyawan')) {
+            return view('karyawan.index');
         } else {
             return redirect('/');
         }

@@ -15,14 +15,12 @@ class CreateKandangsTable extends Migration
     {
         Schema::create('kandang', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('kode');
+            $table->string('nama_kandang');
+            $table->string('jenis_kandang', 20);
             $table->integer('panjang');
             $table->integer('lebar');
-            $table->integer('jumlahBibit');
+            $table->integer('jumlah_koloni');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

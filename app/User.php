@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'noHp', 'alamat', 'username', 'kecamatan_id', 'id_role'
+        'name', 'email', 'password', 'noHp', 'alamat', 'username', 'id_role'
     ];
 
     protected $hidden = [
@@ -35,19 +35,9 @@ class User extends Authenticatable
         return $this->role()->where('name', $role)->count() == 1;
     }
 
-    public function kecamatan()
-    {
-        return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
-    }
-
     public function artikel()
     {
         return $this->hasMany(Artikel::class, 'user_id');
-    }
-
-    public function kandang()
-    {
-        return $this->hasMany(Kandang::class, 'user_id');
     }
 
     public function getUptimeAttribute(): int
