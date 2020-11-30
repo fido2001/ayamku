@@ -17,7 +17,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('artikel/{artikel:slug}', 'ArtikelController@update')->name('artikel.update.admin');
     Route::get('/dataAkun', 'AdminController@dataAkun')->name('admin.akun');
     Route::post('/dataAkun', 'AdminController@storeKaryawan')->name('admin.store.karyawan');
-    Route::delete('/dataAkun', 'AdminController@destroyKaryawan')->name('karyawan.destroy');
+    Route::delete('/dataAkun/{users}', 'AdminController@destroy')->name('karyawan.destroy');
     Route::get('/produk', 'ProdukController@index')->name('produk.index.admin');
     Route::post('/produk', 'ProdukController@store')->name('produk.store');
     Route::get('/produk/{produk}', 'ProdukController@edit')->name('produk.edit');

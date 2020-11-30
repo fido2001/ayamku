@@ -54,6 +54,7 @@ class ProgressDetailController extends Controller
      */
     public function store(Request $request)
     {
+        Carbon::setTestNow('2020-12-01');
         $this->_validation($request);
 
         $tgl_progress = Carbon::now()->setTimezone('Asia/Jakarta');

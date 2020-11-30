@@ -217,7 +217,7 @@
                                         <label for="lebar">
                                             Jumlah Pakan
                                         </label>
-                                        <input type="number" min="1" step="1" id="jumlah_pakan" name="jumlah_pakan" value="{{ old('jumlah_pakan') }}" class="form-control @error('jumlah_pakan') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" placeholder="Dalam Kilogram" min="1" step="1" id="jumlah_pakan" name="jumlah_pakan" value="{{ old('jumlah_pakan') }}" class="form-control @error('jumlah_pakan') is-invalid @enderror" autocomplete="off">
                                         @error('jumlah_pakan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

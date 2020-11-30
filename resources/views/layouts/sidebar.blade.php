@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">Ayam-Ku</a>
+            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">Quail-ity</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">AK</a>
+            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">QLT</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
