@@ -15,7 +15,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('artikel/{artikel:slug}', 'ArtikelController@destroy')->name('artikel.destroy.admin');
     Route::get('artikel/{artikel:slug}', 'ArtikelController@edit')->name('artikel.edit.admin');
     Route::patch('artikel/{artikel:slug}', 'ArtikelController@update')->name('artikel.update.admin');
-    Route::get('/dataAkun', 'AdminController@dataAkun')->name('admin.akun');
+    Route::get('/dataAkunKaryawan', 'AdminController@dataAkunKaryawan')->name('admin.akun.karyawan');
+    Route::get('/dataAkunDistributor', 'AdminController@dataAkunDistributor')->name('admin.akun.distributor');
     Route::post('/dataAkun', 'AdminController@storeKaryawan')->name('admin.store.karyawan');
     Route::delete('/dataAkun/{users}', 'AdminController@destroy')->name('karyawan.destroy');
     Route::get('/produk', 'ProdukController@index')->name('produk.index.admin');
@@ -23,6 +24,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/produk/{produk}', 'ProdukController@edit')->name('produk.edit');
     Route::post('/produk/{produk}', 'ProdukController@update')->name('produk.update');
     Route::delete('/produk/{produk}', 'ProdukController@destroy')->name('produk.destroy');
+    Route::get('/progress', 'AdminController@indexProgress')->name('progress.index.admin');
+    Route::get('progress-detail/{progress}', 'AdminController@progressDetail')->name('progress-detail.index.admin');
 });
 
 Route::prefix('karyawan')->middleware('auth')->group(function () {

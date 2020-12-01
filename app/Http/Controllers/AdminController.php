@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Progress;
+use App\ProgressDetail;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,10 +20,18 @@ class AdminController extends Controller
         }
     }
 
-    public function dataAkun()
+    public function dataAkunKaryawan()
     {
-        return view('admin.dataAkun', [
-            'users' => User::where('id', '!=', Auth::user()->id)->get(),
+        return view('admin.dataAkunKaryawan', [
+            'users' => User::where('id', '!=', Auth::user()->id)->where('id_role', '=', '2')->get(),
+            'roles' => Role::all()
+        ]);
+    }
+
+    public function dataAkunDistributor()
+    {
+        return view('admin.dataAkunDistributor', [
+            'users' => User::where('id', '!=', Auth::user()->id)->where('id_role', '=', '3')->get(),
             'roles' => Role::all()
         ]);
     }
@@ -70,5 +80,28 @@ class AdminController extends Controller
     {
         User::destroy($id);
         return redirect()->route('admin.akun')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function indexProgress()
+    {
+        // $kandang = Kandang::get();
+        $progress = Progress::join('kandang', 'kandang.id', '=', 'progress.id_kandang')->select('progress.*', 'kandang.*')->get();
+        // dd($progress);
+        return view('admin.indexProgress', [
+            'dataProgress' => $progress
+            // 'dataKandang' => $kandang
+        ]);
+    }
+
+    public function progressDetail($id)
+    {
+        $progress = Progress::join('kandang', 'kandang.id', '=', 'progress.id_kandang')->where('progress.id', '=', $id)->select('progress.*')->get();
+
+        $progressDetail = ProgressDetail::join('progress', 'progress.id', '=', 'progress_detail.id_progress')->join('kandang', 'kandang.id', '=', 'progress.id_kandang')->where('progress.id', '=', $id)->select('progress_detail.*', 'progress.*', 'kandang.*')->get();
+
+        return view('admin.progressDetail', [
+            'progressDetail' => $progressDetail,
+            'dataProgress' => $progress
+        ]);
     }
 }

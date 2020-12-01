@@ -63,12 +63,7 @@
                                 <td>{{ $progress->getTanggalMulai() }}</td>
                                 <td>{{ $progress->getTanggalSelesai() }}</td>
                                 <td class="text-center">
-                                    @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') >= $progress->tgl_selesai)
-                                    <a href="{{ route('panen.index') }}" class="badge badge-info">Panen</a>
                                     <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
-                                    @else
-                                    <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a>
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach
