@@ -73,13 +73,13 @@ class AdminController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return redirect()->route('admin.akun')->with('success', 'Data Karyawan Ditambahkan.');
+        return redirect()->route('admin.akun.karyawan')->with('success', 'Data Karyawan Ditambahkan.');
     }
 
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->route('admin.akun')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.akun.karyawan')->with('success', 'Data Berhasil Dihapus');
     }
 
     public function indexProgress()

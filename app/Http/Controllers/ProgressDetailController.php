@@ -54,7 +54,7 @@ class ProgressDetailController extends Controller
      */
     public function store(Request $request)
     {
-        Carbon::setTestNow('2020-12-01');
+        // Carbon::setTestNow('2020-12-01');
         $this->_validation($request);
 
         $tgl_progress = Carbon::now()->setTimezone('Asia/Jakarta');
@@ -126,12 +126,18 @@ class ProgressDetailController extends Controller
             [
                 'jumlah_ternak' => 'required|integer|between:1,9999',
                 'ternak_mati' => 'required|integer|between:1,9999',
-                'perkembangan' => 'required'
+                'perkembangan' => 'required',
+                'id_kategori' => 'required',
+                'ket_waktu' => 'required',
+                'jumlah_pakan' => 'required',
             ],
             [
                 'jumlah_ternak.required' => 'Data tidak boleh kosong, harap diisi',
                 'ternak_mati.required' => 'Data tidak boleh kosong, harap diisi',
-                'perkembangan.required' => 'Data tidak boleh kosong, harap diisi'
+                'perkembangan.required' => 'Data tidak boleh kosong, harap diisi',
+                'id_kategori.required' => 'Data tidak boleh kosong, harap diisi',
+                'ket_waktu.required' => 'Data tidak boleh kosong, harap diisi',
+                'jumlah_pakan.required' => 'Data tidak boleh kosong, harap diisi'
             ]
         );
     }

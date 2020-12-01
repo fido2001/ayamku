@@ -32,7 +32,7 @@ Route::prefix('karyawan')->middleware('auth')->group(function () {
     Route::get('/', 'KaryawanController@index')->name('karyawan.index');
     Route::resource('progress', 'ProgressController');
     Route::get('progress-detail/{progress}', 'ProgressDetailController@index')->name('progress-detail.index');
-    Route::post('progress-detail/{progress}', 'ProgressDetailController@store')->name('progress-detail.store');
+    Route::post('progress-detail', 'ProgressDetailController@store')->name('progress-detail.store');
     Route::get('/myProfile', 'UserController@myProfile')->name('profile.karyawan');
     Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.karyawan');
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.karyawan');

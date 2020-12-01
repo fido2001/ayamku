@@ -134,7 +134,7 @@
                         </button>
                     </div>
                     @foreach ($dataProgress as $dtProgress)
-                    <form action="{{ route('progress-detail.store', $dtProgress->id) }}" method="POST">
+                    <form action="{{ route('progress-detail.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
