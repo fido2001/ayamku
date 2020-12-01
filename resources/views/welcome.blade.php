@@ -165,7 +165,7 @@
                 <h2>QUAIL-ITY</h2>
                 {{-- <h3>Process</h3> --}}
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, quidem!</p>
-                <a href="#">Pelajari Selengkapnya</a>
+                <a href="{{ route('login') }}">Pelajari Selengkapnya</a>
             </div>
             <div class="col-12 col-lg-8">
                 <img src="{{ asset('assets/img/bg.png') }}" alt="Team process banner">
