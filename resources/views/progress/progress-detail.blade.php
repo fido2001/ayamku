@@ -28,7 +28,7 @@
             @foreach ($dataProgress as $dtProgress)
             @if (Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') <= $dtProgress->tgl_selesai)
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
-                Tambah Progress
+                Tambah Data Progress
             </button>
             @endif
             <h6>Lama Siklus : {{ $dtProgress->lama_siklus }} Hari</h6>
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>

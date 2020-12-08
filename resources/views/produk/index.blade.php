@@ -13,7 +13,7 @@
             <h4>Data Produk</h4>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Tambah Data Produk
+                Tambah Produk
             </button>
         </div>
         @if (session('success'))
@@ -78,7 +78,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Panen</h5>
+                        <h5 class="modal-title">Tambah Data Produk</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

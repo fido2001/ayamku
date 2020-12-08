@@ -11,7 +11,7 @@
                 <div class="row">                               
                     <div class="form-group col-md-6 col-12">
                         <label>Jenis Ternak</label>
-                        <input type="text" class="form-control @error('jenis_ternak') is-invalid @enderror" name="jenis_ternak" value="{{ $kategori->jenis_ternak }}" required="">
+                        <input type="text" class="form-control @error('jenis_ternak') is-invalid @enderror" name="jenis_ternak" value="{{ $kategori->jenis_ternak }}">
                         @error('jenis_ternak')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

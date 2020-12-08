@@ -19,10 +19,11 @@ class CreateProdukTable extends Migration
             $table->string('nama_produk');
             $table->integer('harga');
             $table->integer('jumlah_produk');
+            $table->string('gambar', 100);
             $table->date('tgl_produk');
             $table->timestamps();
 
-            $table->foreign('id_progress_detail')->references('id')->on('progress')->onDelete('cascade');
+            $table->foreign('id_progress_detail')->references('id')->on('progress_detail')->onDelete('cascade');
         });
     }
 

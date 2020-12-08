@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="kategori">Kategori Progress</label>
+                                        <label for="kategori">Kategori</label>
                                         <select name="kategori" class="form-control" id="kategori">
                                             <option value="Pembibitan">Pembibitan</option>
                                             <option value="Produksi">Produksi</option>              
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>

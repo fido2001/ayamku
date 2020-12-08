@@ -44,6 +44,10 @@ Route::prefix('distributor')->middleware('auth')->group(function () {
     Route::get('/', 'DistributorController@index')->name('distributor.index');
     Route::get('artikel', 'ArtikelController@index')->name('artikel.index.distributor');
     Route::get('artikel/{artikel:slug}', 'ArtikelController@show')->name('artikel.show.distributor');
+    Route::get('produk', 'ProdukController@indexDistributor')->name('produk.index.distributor');
+    Route::get('produk/{produk}', 'ProdukController@show')->name('produk.show.distributor');
+    Route::get('produk/{produk}/sale', 'ProdukController@sale')->name('produk.sale.distributor');
+    Route::post('produk/sale', 'ProdukController@purchase')->name('produk.purchase.distributor');
     Route::get('/myProfile', 'UserController@myProfile')->name('profile.Distributor');
     Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.Distributor');
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Distributor');

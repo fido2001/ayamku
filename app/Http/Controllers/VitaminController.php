@@ -98,20 +98,20 @@ class VitaminController extends Controller
     {
         $validation = $request->validate(
             [
-                'jenis_vitamin' => 'required|max:50|min:3',
-                'takaran' => 'required|max:100|min:3',
+                'jenis_vitamin' => 'required|max:20|min:3',
+                'takaran' => 'required|max:50|min:3',
                 'khasiat' => 'required|max:100|min:3'
             ],
             [
                 'jenis_vitamin.required' => 'Data tidak boleh kosong, harap diisi',
-                'jenis_vitamin.max' => 'Jenis Vitamin tidak boleh melebihi 50 karakter',
-                'jenis_vitamin.min' => 'Jenis Vitamin minimal 3 karakter',
+                'jenis_vitamin.max' => 'Data tidak boleh melebihi 20 karakter',
+                'jenis_vitamin.min' => 'Data minimal 3 karakter',
                 'takaran.required' => 'Data tidak boleh kosong, harap diisi',
-                'takaran.max' => 'Takaran tidak boleh melebihi 50 karakter',
-                'takaran.min' => 'Takaran minimal 3 karakter',
+                'takaran.max' => 'Data tidak boleh melebihi 50 karakter',
+                'takaran.min' => 'Data minimal 3 karakter',
                 'khasiat.required' => 'Data tidak boleh kosong, harap diisi',
-                'khasiat.max' => 'khasiat tidak boleh melebihi 50 karakter',
-                'khasiat.min' => 'khasiat minimal 3 karakter'
+                'khasiat.max' => 'Data tidak boleh melebihi 100 karakter',
+                'khasiat.min' => 'Data minimal 3 karakter'
             ]
         );
     }

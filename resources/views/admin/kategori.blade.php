@@ -37,7 +37,7 @@
                         <th scope="row">{{ $no+1 }}</th>
                         <td>{{ $ktg->jenis_ternak }}</td>
                         <td class="text-center">
-                            <a href="{{ route('kategori.edit', $ktg->id) }}" class="badge badge-info btn-edit">Ubah</a>
+                            <a href="{{ route('kategori.edit', $ktg->id) }}" class="badge badge-info btn-edit">Edit</a>
                             <a href="#" data-id="{{ $ktg->id }}" class="badge badge-danger swal-confirm">
                                 <form action="{{ route('kategori.destroy', $ktg->id) }}" id="delete{{ $ktg->id }}" method="POST">
                                 @csrf
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>

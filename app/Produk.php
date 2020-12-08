@@ -14,4 +14,9 @@ class Produk extends Model
     {
         return $this->belongsTo(ProgressDetail::class, 'id_progress_detail');
     }
+
+    public function takeImage()
+    {
+        return "/storage/" . $this->gambar;
+    }
 }

@@ -56,6 +56,9 @@
                 <li class="@if(Request::segment(1) == 'distributor' and Request::segment(2) == 'artikel') active @endif">
                     <a href="{{ route('artikel.index.distributor') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Artikel</span></a>
                 </li>
+                <li class="@if(Request::segment(1) == 'distributor' and Request::segment(2) == 'produk') active @endif">
+                    <a href="{{ route('produk.index.distributor') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Produk</span></a>
+                </li>
             @elseif (Request::segment(1) == 'karyawan')
                 <li class="@if(Request::segment(1) == 'karyawan' and Request::segment(2) == 'progress') active @endif">
                     <a href="{{ route('progress.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Progress</span></a>
