@@ -19,7 +19,7 @@
                 <h4>Detail Pemesanan Produk {{ $produk->nama_produk }}</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('produk.purchase.distributor') }}" class="needs-validation" novalidate="">
+                <form method="POST" action="{{ route('produk.purchase.distributor', $produk->id) }}" class="needs-validation" novalidate="">
                     @csrf
                     <div class="card-body">
                         <div class="row">

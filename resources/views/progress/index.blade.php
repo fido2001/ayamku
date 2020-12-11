@@ -59,7 +59,11 @@
                                 <th scope="row">{{ $no+1 }}</th>
                                 <td>{{ $progress->nama_kandang }}</td>
                                 <td>{{ $progress->kategori }}</td>
+                                @if ($progress->kategori == 'Pembibitan')
                                 <td>{{ $progress->lama_siklus }} Hari</td>
+                                @else
+                                <td>11 Bulan</td>
+                                @endif
                                 <td>{{ $progress->getTanggalMulai() }}</td>
                                 <td>{{ $progress->getTanggalSelesai() }}</td>
                                 <td class="text-center">

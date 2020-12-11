@@ -50,56 +50,131 @@ class ProdukController extends Controller
         return view('produk.sale', compact('produk', 'alamat_mitra'));
     }
 
-    public function purchase(Request $request)
+    public function purchase(Request $request, $id)
     {
-        if ($request->banyak_item >= 100 and $request->jenis_pengiriman == 'Diantar') {
-            $nominalKirim = ($request->harga * $request->banyak_item) + ($request->banyak_item * 1000);
-            $nominal = ($request->harga * $request->banyak_item);
-            $order = Order::create([
-                'id_produk' => $request->id_produk,
-                'id_users' => $request->id_users,
-                'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
-                'batas_pembayaran' => Carbon::now()->setTimezone('Asia/Jakarta')->addHours(24),
-                'status_order' => 'Menunggu Pembayaran',
-                'nominal' => $nominalKirim,
-                'banyak_item' => $request->banyak_item,
-                'jenis_pengiriman' => $request->jenis_pengiriman
-            ]);
+        $stok = Produk::where('id', $id)->value('jumlah_produk');
+        if ($request->banyak_item <= $stok) {
+            if ($request->banyak_item >= 100 and $request->jenis_pengiriman == 'Diantar') {
+                $nominalKirim = ($request->harga * $request->banyak_item) + ($request->banyak_item * 1000);
+                $nominal = ($request->harga * $request->banyak_item);
+                $order = Order::create([
+                    'id_produk' => $request->id_produk,
+                    'id_users' => $request->id_users,
+                    'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                    'batas_pembayaran' => Carbon::now()->setTimezone('Asia/Jakarta')->addHours(24),
+                    'status_order' => 'Menunggu Pembayaran',
+                    'nominal' => $nominalKirim,
+                    'banyak_item' => $request->banyak_item,
+                    'jenis_pengiriman' => $request->jenis_pengiriman
+                ]);
 
-            $pembukuan = Pembukuan::create([
-                'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
-                'nama' => 'Penjualan Online',
-                'keterangan' => 'Penjualan online dengan jenis pengiriman (diantar)',
-                'debit' => $nominal,
-                'jenis' => 'Pemasukan'
-            ]);
+                return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
+            } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Diantar') {
+                return redirect()->back()->with('warning', 'Minimun pembelian tidak mencukupi untuk pengiriman');
+            } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Ambil Sendiri') {
+                $nominal = $request->harga * $request->banyak_item;
+                $order = Order::create([
+                    'id_produk' => $request->id_produk,
+                    'id_users' => $request->id_users,
+                    'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                    'batas_pembayaran' => Carbon::now()->setTimezone('Asia/Jakarta')->addHours(24),
+                    'status_order' => 'Menunggu Pembayaran',
+                    'nominal' => $nominal,
+                    'banyak_item' => $request->banyak_item,
+                    'jenis_pengiriman' => $request->jenis_pengiriman
+                ]);
 
-            return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
-        } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Diantar') {
-            return redirect()->back()->with('warning', 'Minimun pembelian tidak mencukupi untuk pengiriman');
-        } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Ambil Sendiri') {
-            $nominal = $request->harga * $request->banyak_item;
-            $order = Order::create([
-                'id_produk' => $request->id_produk,
-                'id_users' => $request->id_users,
-                'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
-                'batas_pembayaran' => Carbon::now()->setTimezone('Asia/Jakarta')->addHours(24),
-                'status_order' => 'Menunggu Pembayaran',
-                'nominal' => $nominal,
-                'banyak_item' => $request->banyak_item,
-                'jenis_pengiriman' => $request->jenis_pengiriman
-            ]);
-
-            $pembukuan = Pembukuan::create([
-                'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
-                'nama' => 'Penjualan Online',
-                'keterangan' => 'Penjualan online dengan jenis pengiriman (ambil sendiri)',
-                'debit' => $nominal,
-                'jenis' => 'Pemasukan'
-            ]);
-
-            return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
+                return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
+            }
+        } else {
+            return redirect()->back()->with('warning', 'Jumlah pembelian melebihi stok.');
         }
+    }
+
+    public function historyDistributor()
+    {
+        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('order.id_users', auth()->user()->id)->select('order.*', 'p.nama_produk')->get();
+        // dd($order);
+        return view('saleProduk.historyDistributor', ['dataOrder' => $order]);
+    }
+
+    public function historyAdmin()
+    {
+        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('status_order', '!=', 'Menunggu Pembayaran')->select('order.*', 'p.nama_produk')->get();
+
+        return view('saleProduk.historyAdmin', ['dataOrder' => $order]);
+    }
+
+    public function destroyPesanan($id)
+    {
+        Order::destroy($id);
+        return redirect()->back()->with('success', 'Pesanan Berhasil Dibatalkan.');
+    }
+
+    public function historyAdminDetail($id)
+    {
+        $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->join('users', 'order.id_users', '=', 'users.id')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga', 'users.name', 'users.alamat')->get();
+        // dd($tenggat);
+        return view('saleProduk.historyAdmin-detail', ['dataOrder' => $dataorder]);
+    }
+
+    public function historyDistributorDetail($id)
+    {
+        // Carbon::setTestNow('2020-12-10');
+        $order = Order::where('id', $id)->first();
+        if (Carbon::now()->setTimezone('Asia/Jakarta') > $order->batas_pembayaran) {
+            $order->delete();
+            return redirect('distributor/rekapPemesanan')->with('fail', 'Pesanan telah dibatalkan, karena pembayaran tidak dilakukan sebelum waktu batas pembayaran habis.');
+        } else {
+            $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga')->get();
+            // dd($tenggat);
+            return view('saleProduk.historyDistributor-detail', ['dataOrder' => $dataorder]);
+        }
+    }
+
+    public function pembayaran($id)
+    {
+        $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga')->get();
+
+        return view('saleProduk.pembayaran', ['dataOrder' => $dataorder]);
+    }
+
+    public function storePembayaran(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'bukti' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+                'atas_nama' => 'required|max:30',
+                'rekening' => 'required|max:15'
+            ],
+            [
+                'bukti.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'atas_nama.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'rekening.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'rekening.max' => 'Maksimal 15 Karakter',
+                'atas_nama.max' => 'Maksimal 30 Karakter'
+            ]
+        );
+
+        $bukti = request()->file('bukti')->store('images/bukti', 'public');
+
+        Order::where('id', $id)->update([
+            'rekening' => $request->rekening,
+            'atas_nama' => $request->atas_nama,
+            'nominal' => $request->nominal,
+            'status_order' => 'Belum Terverifikasi',
+            'bukti' => $bukti
+        ]);
+
+        $pembukuan = Pembukuan::create([
+            'tanggal' => Carbon::now()->setTimezone('Asia/Jakarta'),
+            'nama' => 'Penjualan Online',
+            'keterangan' => 'Penjualan online',
+            'debit' => $request->nominal,
+            'jenis' => 'Pemasukan'
+        ]);
+
+        return redirect('distributor/rekapPemesanan')->with('success', 'Data pembayaran akan segera diproses');
     }
 
     public function store(Request $request)

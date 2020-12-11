@@ -47,7 +47,7 @@
                             <th scope="col">Jumlah Pakan</th>
                             <th scope="col">Tanggal Progress</th>
                             <th scope="col">Ket Waktu</th>
-                            <th scope="col" class="text-center">Aksi</th>
+                            {{-- <th scope="col" class="text-center">Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +60,8 @@
                             <td>{{ $progress->jumlah_pakan }} Kg</td>
                             <td>{{ $progress->getTanggalProgress() }}</td>
                             <td>{{ $progress->ket_waktu }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                            {{-- <td class="text-center"> --}}
+                                {{-- <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a> --}}
                                 {{-- <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a> --}}
                                 {{-- <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
                                     <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
@@ -70,7 +70,7 @@
                                     </form>
                                     Hapus
                                 </a> --}}
-                            </td>
+                            {{-- </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -88,7 +88,7 @@
                             <th scope="col">Jumlah Pakan</th>
                             <th scope="col">Tanggal Progress</th>
                             <th scope="col">Ket Waktu</th>
-                            <th scope="col" class="text-center">Aksi</th>
+                            {{-- <th scope="col" class="text-center">Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -100,8 +100,8 @@
                             <td>{{ $progress->jumlah_pakan }} Kg</td>
                             <td>{{ $progress->getTanggalProgress() }}</td>
                             <td>{{ $progress->ket_waktu }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a>
+                            {{-- <td class="text-center">
+                                <a href="{{ route('progress.edit', $progress->id) }}" class="badge badge-info">Edit</a> --}}
                                 {{-- <a href="{{ route('progress-detail.index', $progress->id) }}" class="badge badge-success">Detail</a> --}}
                                 {{-- <a href="#" data-id="{{ $progress->id }}" class="badge badge-danger swal-confirm">
                                     <form action="{{ route('progress.destroy', $progress->id) }}" id="delete{{ $progress->id }}" method="POST">
@@ -110,7 +110,7 @@
                                     </form>
                                     Hapus
                                 </a> --}}
-                            </td>
+                            {{-- </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

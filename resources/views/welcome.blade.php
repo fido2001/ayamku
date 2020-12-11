@@ -132,7 +132,7 @@
     /*# sourceMappingURL=style.css.map */
     </style>
 
-    <title>Quail-ity</title>
+    <title>Quaility</title>
 </head>
 
 <body>
@@ -141,7 +141,7 @@
             <nav class="navbar navbar-expand-lg navbar-light head__custom-nav">
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     {{-- <img src="{{ asset('assets/img/logo.png') }}" alt="website logo"> --}}
-                    <span>QUAIL-ITY</span>
+                    <span>QUAILITY</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                     <span><img src="{{ asset('assets/img/menu.png') }}" alt=""></span>
@@ -162,9 +162,9 @@
     <div class="container">
         <div class="row custom-section d-flex align-items-center">
             <div class="col-12 col-lg-4">
-                <h2>QUAIL-ITY</h2>
+                <h2>QUAILITY</h2>
                 {{-- <h3>Process</h3> --}}
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, quidem!</p>
+                <p>PT. BUMI UNGGAS FARM - SITUBONDO</p>
                 <a href="{{ route('login') }}">Pelajari Selengkapnya</a>
             </div>
             <div class="col-12 col-lg-8">

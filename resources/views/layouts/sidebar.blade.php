@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">Quail-ity</a>
+            <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">Quaility</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="@if(Request::segment(1)=='admin'){{ route('admin.index') }} @elseif(Request::segment(1)=='karyawan'){{ route('karyawan.index') }} @elseif(Request::segment(1)=='distributor'){{ route('distributor.index') }}  @endif">QLT</a>
@@ -25,7 +25,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkunKaryawan') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkunDistributor') active @endif">
-                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i><span>Data Akun</span></a>
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i><span>Data Akun</span></a>
                     <ul class="dropdown-menu">
                         <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkunKaryawan')
                         active @endif"><a class="nav-link" href="{{ route('admin.akun.karyawan') }}">Akun Karyawan</a></li>
@@ -38,11 +38,14 @@
                 <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'kandang') active @endif">
                     <a href="{{ route('kandang.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Kandang</span></a>
                 </li>
-                <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'produk') active @endif">
-                    <a href="{{ route('produk.index.admin') }}" class="nav-link"><i class="fas fa-home"></i><span>Produk</span></a>
-                </li>
                 <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'progress') active @endif">
-                    <a href="{{ route('progress.index.admin') }}" class="nav-link"><i class="fas fa-home"></i><span>Progress</span></a>
+                    <a href="{{ route('progress.index.admin') }}" class="nav-link"><i class="fas fa-edit"></i><span>Progress</span></a>
+                </li>
+                <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'produk') active @endif">
+                    <a href="{{ route('produk.index.admin') }}" class="nav-link"><i class="fas fa-tag"></i><span>Produk</span></a>
+                </li>
+                <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'rekapPemesanan') active @endif">
+                    <a href="{{ route('produk.history.admin') }}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Riwayat Pesanan</span></a>
                 </li>
             @endif
             @if (Request::segment(1) == 'admin')
@@ -57,11 +60,14 @@
                     <a href="{{ route('artikel.index.distributor') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Artikel</span></a>
                 </li>
                 <li class="@if(Request::segment(1) == 'distributor' and Request::segment(2) == 'produk') active @endif">
-                    <a href="{{ route('produk.index.distributor') }}" class="nav-link"><i class="far fa-newspaper"></i><span>Produk</span></a>
+                    <a href="{{ route('produk.index.distributor') }}" class="nav-link"><i class="fas fa-tag"></i><span>Produk</span></a>
+                </li>
+                <li class="@if(Request::segment(1) == 'distributor' and Request::segment(2) == 'rekapPemesanan') active @endif">
+                    <a href="{{ route('produk.history.distributor') }}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Riwayat Pesanan</span></a>
                 </li>
             @elseif (Request::segment(1) == 'karyawan')
                 <li class="@if(Request::segment(1) == 'karyawan' and Request::segment(2) == 'progress') active @endif">
-                    <a href="{{ route('progress.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Progress</span></a>
+                    <a href="{{ route('progress.index') }}" class="nav-link"><i class="fas fa-edit"></i><span>Progress</span></a>
                 </li>
             @endif
         </ul>      

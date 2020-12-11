@@ -24,6 +24,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/produk/{produk}', 'ProdukController@edit')->name('produk.edit');
     Route::post('/produk/{produk}', 'ProdukController@update')->name('produk.update');
     Route::delete('/produk/{produk}', 'ProdukController@destroy')->name('produk.destroy');
+    Route::get('/rekapPemesanan', 'ProdukController@historyAdmin')->name('produk.history.admin');
+    Route::get('rekapPemesanan/{order}', 'ProdukController@historyAdminDetail')->name('produk.historyDetail.admin');
     Route::get('/progress', 'AdminController@indexProgress')->name('progress.index.admin');
     Route::get('progress-detail/{progress}', 'AdminController@progressDetail')->name('progress-detail.index.admin');
 });
@@ -47,7 +49,12 @@ Route::prefix('distributor')->middleware('auth')->group(function () {
     Route::get('produk', 'ProdukController@indexDistributor')->name('produk.index.distributor');
     Route::get('produk/{produk}', 'ProdukController@show')->name('produk.show.distributor');
     Route::get('produk/{produk}/sale', 'ProdukController@sale')->name('produk.sale.distributor');
-    Route::post('produk/sale', 'ProdukController@purchase')->name('produk.purchase.distributor');
+    Route::post('produk/{produk}/sale', 'ProdukController@purchase')->name('produk.purchase.distributor');
+    Route::delete('produk/{produk}', 'ProdukController@destroyPesanan')->name('pesanan.destroy.distributor');
+    Route::get('rekapPemesanan', 'ProdukController@historyDistributor')->name('produk.history.distributor');
+    Route::get('rekapPemesanan/{order}', 'ProdukController@historyDistributorDetail')->name('produk.historyDetail.distributor');
+    Route::get('rekapPemesanan/{order}/pembayaran', 'ProdukController@pembayaran')->name('produk.pembayaran.distributor');
+    Route::patch('rekapPemesanan/{order}/pembayaran', 'ProdukController@storePembayaran')->name('produk.pembayaran.distributor');
     Route::get('/myProfile', 'UserController@myProfile')->name('profile.Distributor');
     Route::get('/editProfile', 'UserController@editProfile')->name('edit.profile.Distributor');
     Route::patch('/editProfile', 'UserController@updateProfile')->name('edit.profile.Distributor');
