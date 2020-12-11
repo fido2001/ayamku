@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header"><h4>Edit Data Vitamin</h4></div>
-        <form method="post" action="{{ route('vitamin.update', $vitamin) }}" class="needs-validation" novalidate="">
+        <form method="post" action="{{ route('vitamin.update', $vitamin->id) }}" class="needs-validation" novalidate="">
             @csrf
             @method('PATCH')
             <input type="hidden" name="id" value="{{ $vitamin->id }}">

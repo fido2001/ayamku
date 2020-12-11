@@ -47,6 +47,9 @@
                 <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'rekapPemesanan') active @endif">
                     <a href="{{ route('produk.history.admin') }}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Riwayat Pesanan</span></a>
                 </li>
+                <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'pembukuan') active @endif">
+                    <a href="{{ route('pembukuan.index') }}" class="nav-link"><i class="fas fa-dollar-sign"></i><span>Pembukuan</span></a>
+                </li>
             @endif
             @if (Request::segment(1) == 'admin')
                 <li class="@if(Request::segment(1) == 'admin' and Request::segment(2) == 'artikel') active @endif">
