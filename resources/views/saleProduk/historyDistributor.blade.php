@@ -62,7 +62,7 @@
                                 <td>Rp. {{ $order->nominal }}</td>
                                 @endif
                                 <td>{{ $order->status_order }}</td>
-                                @if ($order->status_order == 'Menunggu Pembayaran')
+                                @if ($order->status_order == 'Menunggu Pembayaran' or $order->status_order == 'Verifikasi Gagal')
                                 <td><span id="clock"></span></td>
                                 @else
                                 <td class="text-center">-</td>

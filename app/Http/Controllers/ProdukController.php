@@ -100,7 +100,7 @@ class ProdukController extends Controller
 
     public function historyAdmin()
     {
-        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('status_order', '!=', 'Menunggu Pembayaran')->select('order.*', 'p.nama_produk')->get();
+        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('status_order', '!=', 'Menunggu Pembayaran')->where('batas_pembayaran', '>', Carbon::now()->setTimezone('Asia/Jakarta'))->select('order.*', 'p.nama_produk')->get();
 
         return view('saleProduk.historyAdmin', ['dataOrder' => $order]);
     }
@@ -175,6 +175,33 @@ class ProdukController extends Controller
         ]);
 
         return redirect('distributor/rekapPemesanan')->with('success', 'Data pembayaran akan segera diproses');
+    }
+
+    public function verifikasiBerhasil(Request $request, $id)
+    {
+        Order::where('id', $id)->update([
+            'status_order' => $request->status_order
+        ]);
+
+        return redirect()->back()->with('success', 'Verifikasi Berhasil dilakukan.');
+    }
+
+    public function verifikasiGagal(Request $request, $id)
+    {
+        $data = Order::find($id);
+        $image_path = public_path() . '/storage/' . $data->bukti;
+        unlink($image_path);
+
+        Order::where('id', $id)->update([
+            'status_order' => $request->status_order,
+            'bukti' => null,
+            'rekening' => null,
+            'atas_nama' => null,
+            'batas_pembayaran' => Carbon::now()->setTimezone('Asia/Jakarta')->addHours(24)
+        ]);
+
+
+        return redirect()->back()->with('success', 'Verifikasi Berhasil dilakukan.');
     }
 
     public function store(Request $request)

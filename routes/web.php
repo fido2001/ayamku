@@ -26,6 +26,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/produk/{produk}', 'ProdukController@destroy')->name('produk.destroy');
     Route::get('/rekapPemesanan', 'ProdukController@historyAdmin')->name('produk.history.admin');
     Route::get('rekapPemesanan/{order}', 'ProdukController@historyAdminDetail')->name('produk.historyDetail.admin');
+    Route::patch('rekapPemesanan/{order}/t', 'ProdukController@verifikasiBerhasil')->name('verifikasi.berhasil');
+    Route::patch('rekapPemesanan/{order}/f', 'ProdukController@verifikasiGagal')->name('verifikasi.gagal');
     Route::get('/progress', 'AdminController@indexProgress')->name('progress.index.admin');
     Route::get('progress-detail/{progress}', 'AdminController@progressDetail')->name('progress-detail.index.admin');
     Route::resource('pembukuan', 'PembukuanController');
