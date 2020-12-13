@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kandang;
 use App\Progress;
 use App\ProgressDetail;
 use App\Role;
@@ -14,7 +15,13 @@ class AdminController extends Controller
     public function index()
     {
         if (request()->user()->hasRole('Admin')) {
-            return view('admin.index');
+            $kandang = Kandang::get();
+            $karyawan = User::where('id_role', 2)->get();
+            $distributor = User::where('id_role', 3)->get();
+            $jml_kandang = count($kandang);
+            $jml_karyawan = count($karyawan);
+            $jml_distributor = count($distributor);
+            return view('admin.index', compact('jml_kandang', 'jml_karyawan', 'jml_distributor'));
         } else {
             return redirect('/');
         }
