@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="panen">Jumlah Produk</label>
+                                        <label for="panen">Jumlah Produk <small>(Dalam Kg)</small></label>
                                         <input type="number" min="1" step="1" name="jumlah_produk" id="panen" class="form-control @error('jumlah_produk') is-invalid @enderror">
                                         @error('jumlah_produk')
                                             <span class="invalid-feedback" role="alert">

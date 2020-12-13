@@ -17,7 +17,6 @@ class ProdukController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        // $produk = Produk::join('data_panen as pn', 'produk.id_panen', '=', 'pn.id')->where('produk.id_panen', '=', 'pn.id')->get();
         $produk = DB::table('produk as pr')->join('progress_detail as prdt', 'pr.id_progress_detail', '=', 'prdt.id')->select('pr.*', 'prdt.tgl_progress', 'prdt.banyak_telur')->get();
         // dd($produk);
         $progress = ProgressDetail::get();
@@ -208,11 +207,18 @@ class ProdukController extends Controller
     {
         $tgl_produk = Carbon::now()->setTimezone('Asia/Jakarta');
 
-        // $request->validate([
-        //     'nama_produk' => 'required',
-        //     'harga' => 'required',
-        //     'jumlah_produk' => 'required',
-        // ]);
+        $request->validate(
+            [
+                'nama_produk' => 'required',
+                'harga' => 'required',
+                'jumlah_produk' => 'required',
+            ],
+            [
+                'nama_produk.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'harga.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'jumlah_produk.required' => 'Semua Form harap diisi dan tidak boleh kosong'
+            ]
+        );
 
         $produk = Produk::create([
             'id_progress_detail' => $request->id_progress_detail,
