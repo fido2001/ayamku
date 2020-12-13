@@ -245,6 +245,8 @@ class ProdukController extends Controller
         Produk::where('id', $id)->update([
             'harga' => $request->harga
         ]);
+
+        return redirect()->route('produk.index.admin')->with('success', 'Data Berhasil Diubah.');
     }
 
     public function destroy($id)

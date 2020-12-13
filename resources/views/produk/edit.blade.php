@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <a href="{{ route('produk.index.peternak') }}" class="btn btn-warning">Batal</a>
+                <a href="{{ route('produk.index.admin') }}" class="btn btn-warning">Batal</a>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
