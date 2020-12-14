@@ -39,12 +39,13 @@ class ArtikelController extends Controller
     {
         $request->validate(
             [
-                'title' => 'required',
+                'title' => 'required|max:100',
                 'body' => 'required',
-                'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+                'image' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
             ],
             [
                 'title.required' => 'Data tidak boleh kosong',
+                'title.max' => 'Maksimal 100 Karakter',
                 'body.required' => 'Data tidak boleh kosong',
                 // 'thumbnail.required' => 'Data tidak boleh kosong'
             ]
@@ -117,7 +118,7 @@ class ArtikelController extends Controller
 
         if (request()->file('thumbnail')) {
             \Storage::delete($artikel->thumbnail);
-            $thumbnail = request()->file('thumbnail')->store("images/artikel");
+            $thumbnail = request()->file('thumbnail')->store("images/artikel", 'public');
         } else {
             $thumbnail = $artikel->thumbnail;
         }

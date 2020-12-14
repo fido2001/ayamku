@@ -96,11 +96,11 @@ class KategoriController extends Controller
     {
         $validation = $request->validate(
             [
-                'jenis_ternak' => 'required|max:50|min:3',
+                'jenis_ternak' => 'required|max:15|min:3',
             ],
             [
                 'jenis_ternak.required' => 'Data tidak boleh kosong, harap diisi',
-                'jenis_ternak.max' => 'Data tidak boleh melebihi 50 karakter',
+                'jenis_ternak.max' => 'Data tidak boleh melebihi 15 karakter',
                 'jenis_ternak.min' => 'Data minimal 3 karakter',
             ]
         );

@@ -8,7 +8,7 @@ class Produk extends Model
 {
     protected $table = 'produk';
 
-    protected $fillable = ['id_progress_detail', 'harga', 'jumlah_produk', 'nama_produk', 'tgl_produk'];
+    protected $fillable = ['id_progress_detail', 'harga', 'jumlah_produk', 'nama_produk', 'tgl_produk', 'gambar'];
 
     public function progress_detail()
     {

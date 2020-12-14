@@ -57,11 +57,11 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|alpha_num|max:20',
+            'username' => 'required|alpha_num|max:30',
             'password' => 'required|string|max:30',
         ], [
             'username.required' => 'Data Tidak Boleh kosong',
-            'username.max' => 'Maksimal 20 karakter',
+            'username.max' => 'Maksimal 30 karakter',
             'password.max' => 'Maksimal 30 karakter',
             'password.required' => 'Data Tidak Boleh kosong',
         ]);

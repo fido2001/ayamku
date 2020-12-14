@@ -38,14 +38,17 @@
                         <div class="row mt-4">
                             <div class="col-lg-8">
                                 <div class="section-title">Bank Tujuan Pembayaran</div>
+                                @foreach ($dataRekening as $rekening)
                                 <div class="row no-gutters justify-content-center align-items-center pb-2">
-                                    <img class="img-fluid" src="{{ asset('assets/img/mandiri.png') }}" style="height: 40px" alt="visa">
-                                    <h5 class="mb-0">81788900 91029</h5>
+                                    {{-- <img class="img-fluid" src="{{ asset('assets/img/mandiri.png') }}" style="height: 40px" alt="visa"> --}}
+                                    <h5 class="mr-3" style="color: black">Bank {{ $rekening->nama_bank }}</h5>
+                                    <h5 class="mb-0">{{ $rekening->no_rekening }}</h5>
                                     <div class="col-4"></div>
-                                    <div class="col-8 mt-2"><h6>a.n. PT Bumi Unggas Farm</h6></div>
+                                    <div class="col-8 mt-2"><h6>a.n. {{ $rekening->nama_pemilik }}</h6></div>
                                     <div class="col-8 border-bottom mt-2"></div>
                                     <div class="col-4"></div>
                                 </div>
+                                @endforeach
                             </div>
                             <div class="col-lg-4 text-right">
                                 <div class="invoice-detail-item">
@@ -106,7 +109,7 @@
                     </div>
                     <div class="text-md-right">
                         <div class="float-lg-left mb-lg-0 mb-3">
-                            <button type="submit" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Bayar</button>
+                            <button type="submit" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Kirim</button>
                             <a href="/distributor/rekapPemesanan/{{ $order->id }}" class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Batal</a>
                         </div>
                     </div>

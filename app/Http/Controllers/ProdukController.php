@@ -6,6 +6,7 @@ use App\Order;
 use App\Pembukuan;
 use App\Produk;
 use App\ProgressDetail;
+use App\Rekening;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,16 @@ class ProdukController extends Controller
 
     public function purchase(Request $request, $id)
     {
+        $request->validate(
+            [
+                'banyak_item' => 'required|max:11',
+                'jenis_pengiriman' => 'required'
+            ],
+            [
+                'banyak_item.required' => 'Data tidak boleh kosong, harap diisi',
+                'jenis_pengiriman.required' => 'Data tidak boleh kosong, harap diisi'
+            ]
+        );
         $stok = Produk::where('id', $id)->value('jumlah_produk');
         if ($request->banyak_item <= $stok) {
             if ($request->banyak_item >= 100 and $request->jenis_pengiriman == 'Diantar') {
@@ -70,7 +81,7 @@ class ProdukController extends Controller
                 return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
             } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Diantar') {
                 return redirect()->back()->with('warning', 'Minimun pembelian tidak mencukupi untuk pengiriman');
-            } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Ambil Sendiri') {
+            } elseif ($request->banyak_item < 100 and $request->jenis_pengiriman == 'Diambil ditempat') {
                 $nominal = $request->harga * $request->banyak_item;
                 $order = Order::create([
                     'id_produk' => $request->id_produk,
@@ -83,7 +94,7 @@ class ProdukController extends Controller
                     'jenis_pengiriman' => $request->jenis_pengiriman
                 ]);
 
-                return redirect('distributor/produk')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
+                return redirect('distributor/rekapPemesanan')->with('success', 'Produk berhasil dipesan, segera lakukan pembayaran');
             }
         } else {
             return redirect()->back()->with('warning', 'Jumlah pembelian melebihi stok.');
@@ -99,7 +110,7 @@ class ProdukController extends Controller
 
     public function historyAdmin()
     {
-        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('status_order', '!=', 'Menunggu Pembayaran')->where('batas_pembayaran', '>', Carbon::now()->setTimezone('Asia/Jakarta'))->select('order.*', 'p.nama_produk')->get();
+        $order = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('status_order', '!=', 'Menunggu Pembayaran')->select('order.*', 'p.nama_produk')->get();
 
         return view('saleProduk.historyAdmin', ['dataOrder' => $order]);
     }
@@ -107,12 +118,12 @@ class ProdukController extends Controller
     public function destroyPesanan($id)
     {
         Order::destroy($id);
-        return redirect()->back()->with('success', 'Pesanan Berhasil Dibatalkan.');
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 
     public function historyAdminDetail($id)
     {
-        $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->join('users', 'order.id_users', '=', 'users.id')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga', 'users.name', 'users.alamat')->get();
+        $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->join('users', 'order.id_users', '=', 'users.id')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga', 'users.name', 'users.alamat', 'users.noHp')->get();
         // dd($tenggat);
         return view('saleProduk.historyAdmin-detail', ['dataOrder' => $dataorder]);
     }
@@ -121,7 +132,7 @@ class ProdukController extends Controller
     {
         // Carbon::setTestNow('2020-12-10');
         $order = Order::where('id', $id)->first();
-        if (Carbon::now()->setTimezone('Asia/Jakarta') > $order->batas_pembayaran) {
+        if (Carbon::now()->setTimezone('Asia/Jakarta') > $order->batas_pembayaran and $order->bukti == null) {
             $order->delete();
             return redirect('distributor/rekapPemesanan')->with('fail', 'Pesanan telah dibatalkan, karena pembayaran tidak dilakukan sebelum waktu batas pembayaran habis.');
         } else {
@@ -134,8 +145,9 @@ class ProdukController extends Controller
     public function pembayaran($id)
     {
         $dataorder = Order::join('produk as p', 'p.id', '=', 'order.id_produk')->where('order.id', $id)->select('order.*', 'p.nama_produk', 'p.harga')->get();
+        $rekening = Rekening::get();
 
-        return view('saleProduk.pembayaran', ['dataOrder' => $dataorder]);
+        return view('saleProduk.pembayaran', ['dataOrder' => $dataorder, 'dataRekening' => $rekening]);
     }
 
     public function storePembayaran(Request $request, $id)
@@ -144,13 +156,14 @@ class ProdukController extends Controller
             [
                 'bukti' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
                 'atas_nama' => 'required|max:30',
-                'rekening' => 'required|max:15'
+                'rekening' => 'required|max:16|min:10|regex:/^[0-9]+$/'
             ],
             [
                 'bukti.required' => 'Semua Form harap diisi dan tidak boleh kosong',
                 'atas_nama.required' => 'Semua Form harap diisi dan tidak boleh kosong',
                 'rekening.required' => 'Semua Form harap diisi dan tidak boleh kosong',
-                'rekening.max' => 'Maksimal 15 Karakter',
+                'rekening.max' => 'Maksimal 16 Karakter',
+                'rekening.min' => 'Minimal 10 Karakter',
                 'atas_nama.max' => 'Maksimal 30 Karakter'
             ]
         );
@@ -210,23 +223,31 @@ class ProdukController extends Controller
         $request->validate(
             [
                 'nama_produk' => 'required',
-                'harga' => 'required',
-                'jumlah_produk' => 'required',
+                'harga' => 'required|max:11',
+                'jumlah_produk' => 'required|max:11',
+                'gambar' => 'image|mimes:jpg,png,jpeg,svg|max:2048'
             ],
             [
                 'nama_produk.required' => 'Semua Form harap diisi dan tidak boleh kosong',
+                'gambar.required' => 'Semua Form harap diisi dan tidak boleh kosong',
                 'harga.required' => 'Semua Form harap diisi dan tidak boleh kosong',
                 'jumlah_produk.required' => 'Semua Form harap diisi dan tidak boleh kosong'
             ]
         );
 
-        $produk = Produk::create([
-            'id_progress_detail' => $request->id_progress_detail,
-            'nama_produk' => $request->nama_produk,
-            'harga' => $request->harga,
-            'jumlah_produk' => $request->jumlah_produk,
-            'tgl_produk' => $tgl_produk
-        ]);
+        if (request()->file('gambar')) {
+            $gambar = request()->file('gambar')->store("images/produk", "public");
+        } else {
+            $gambar = null;
+        }
+
+        $attr = $request->all();
+
+        // dd($request->all());
+        $attr['tgl_produk'] = $tgl_produk;
+        $attr['gambar'] = $gambar;
+
+        $produk = Produk::create($attr);
 
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
     }

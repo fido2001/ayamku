@@ -23,6 +23,10 @@
                         <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'kategori')
                         active @endif"><a class="nav-link" href="{{ route('kategori.index') }}">Data Kategori</a></li>
                     </ul>
+                    <ul class="dropdown-menu">
+                        <li class="@if (Request::segment(1) == 'admin' and Request::segment(2) == 'rekening')
+                        active @endif"><a class="nav-link" href="{{ route('rekening.index') }}">Data Rekening</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown @if (Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkunKaryawan') active @elseif (Request::segment(1) == 'admin' and Request::segment(2) == 'dataAkunDistributor') active @endif">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i><span>Data Akun</span></a>

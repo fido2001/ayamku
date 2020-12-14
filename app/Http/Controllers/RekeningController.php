@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Vitamin;
+use App\Rekening;
 use Illuminate\Http\Request;
 
-class VitaminController extends Controller
+class RekeningController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class VitaminController extends Controller
      */
     public function index()
     {
-        $vitamin = Vitamin::get();
-        return view('admin.vitamin', ['dataVitamin' => $vitamin]);
+        $rekening = Rekening::get();
+        return view('admin.rekening', ['dataRekening' => $rekening]);
     }
 
     /**
@@ -37,7 +37,7 @@ class VitaminController extends Controller
     public function store(Request $request)
     {
         $this->_validation($request);
-        Vitamin::create($request->all());
+        Rekening::create($request->all());
         return redirect()->back()->with('success', 'Data Berhasil Disimpan.');
     }
 
@@ -58,9 +58,9 @@ class VitaminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vitamin $vitamin)
+    public function edit(Rekening $rekening)
     {
-        return view('admin.vitamin-edit', compact('vitamin'));
+        return view('admin.rekening-edit', compact('rekening'));
     }
 
     /**
@@ -73,13 +73,13 @@ class VitaminController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation($request);
-        Vitamin::where('id', $id)->update([
-            'jenis_vitamin' => $request->jenis_vitamin,
-            'takaran' => $request->takaran,
-            'khasiat' => $request->khasiat
+        Rekening::where('id', $id)->update([
+            'nama_bank' => $request->nama_bank,
+            'nama_pemilik' => $request->nama_pemilik,
+            'no_rekening' => $request->no_rekening
         ]);
 
-        return redirect()->route('vitamin.index')->with('success', 'Data Berhasil Disimpan');
+        return redirect('admin/rekening')->with('success', 'Data Berhasil Disimpan.');
     }
 
     /**
@@ -90,26 +90,28 @@ class VitaminController extends Controller
      */
     public function destroy($id)
     {
-        Vitamin::destroy($id);
-        return redirect()->route('vitamin.index')->with('success', 'Data Berhasil Dihapus');
+        Rekening::destroy($id);
+        return redirect()->route('rekening.index')->with('success', 'Data Berhasil Dihapus');
     }
 
     private function _validation(Request $request)
     {
         $validation = $request->validate(
             [
-                'jenis_vitamin' => 'required|max:20|min:3',
-                'takaran' => 'required|max:25|min:3',
-                'khasiat' => 'required'
+                'nama_bank' => 'required|max:20|min:3',
+                'nama_pemilik' => 'required|max:30|min:3',
+                'no_rekening' => 'required|min:10|max:16|regex:/^[0-9]+$/'
             ],
             [
-                'jenis_vitamin.required' => 'Data tidak boleh kosong, harap diisi',
-                'jenis_vitamin.max' => 'Data tidak boleh melebihi 20 karakter',
-                'jenis_vitamin.min' => 'Data minimal 3 karakter',
-                'takaran.required' => 'Data tidak boleh kosong, harap diisi',
-                'takaran.max' => 'Data tidak boleh melebihi 25 karakter',
-                'takaran.min' => 'Data minimal 3 karakter',
-                'khasiat.required' => 'Data tidak boleh kosong, harap diisi'
+                'nama_bank.required' => 'Data tidak boleh kosong, harap diisi',
+                'nama_bank.max' => 'Data tidak boleh melebihi 20 karakter',
+                'nama_bank.min' => 'Data minimal 3 karakter',
+                'nama_pemilik.required' => 'Data tidak boleh kosong, harap diisi',
+                'nama_pemilik.max' => 'Data tidak boleh melebihi 30 karakter',
+                'nama_pemilik.min' => 'Data minimal 3 karakter',
+                'no_rekening.required' => 'Data tidak boleh kosong, harap diisi',
+                'no_rekening.max' => 'Data tidak boleh melebihi 16 karakter',
+                'no_rekening.min' => 'Data minimal 10 karakter',
             ]
         );
     }

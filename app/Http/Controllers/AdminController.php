@@ -47,12 +47,12 @@ class AdminController extends Controller
     {
         request()->validate(
             [
-                'username' => ['required', 'alpha_num', 'max:25'],
+                'username' => ['required', 'alpha_num', 'max:30'],
                 'noHp' => ['required', 'string', 'max:13', 'min:10', 'regex:/^(08)[0-9]*/'],
                 'alamat' => ['required'],
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'name' => ['required', 'string', 'max:30'],
+                'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed', 'max:30'],
             ],
             [
                 'name.string' => 'Nama Lengkap Harus berupa huruf',
@@ -66,7 +66,7 @@ class AdminController extends Controller
                 'password.confirmed' => 'Masukkan konfirmasi password yang valid',
                 'email.email' => 'Masukkan Email yang valid.',
                 'email.unique' => 'Email sudah digunakan, silakan ganti.',
-                'username.max' => 'Maksimal 25 karakter',
+                'username.max' => 'Maksimal 30 karakter',
                 'username.alpha_num' => 'Hanya bisa diisi dengan karakter alpha numeric',
             ]
         );

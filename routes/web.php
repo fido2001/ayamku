@@ -11,6 +11,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('artikel', 'ArtikelController');
     Route::resource('vitamin', 'VitaminController');
     Route::resource('kategori', 'KategoriController');
+    Route::resource('rekening', 'RekeningController');
     Route::resource('kandang', 'KandangController');
     Route::delete('artikel/{artikel:slug}', 'ArtikelController@destroy')->name('artikel.destroy.admin');
     Route::get('artikel/{artikel:slug}', 'ArtikelController@edit')->name('artikel.edit.admin');

@@ -47,14 +47,16 @@ class PembukuanController extends Controller
                 'nama' => 'required|max:30',
                 'tanggal' => 'required',
                 'jenis' => 'required',
-                'nominal' => 'required',
+                'nominal' => 'required|max:11|regex:/^[0-9]+$/',
                 'keterangan' => 'required',
             ],
             [
                 'nama.required' => 'Data tidak boleh kosong, harap diisi',
+                'nama.max' => 'Maksimal 30 karakter',
                 'tanggal.required' => 'Data tidak boleh kosong, harap diisi',
                 'jenis.required' => 'Data tidak boleh kosong, harap diisi',
                 'nominal.required' => 'Data tidak boleh kosong, harap diisi',
+                'nominal.max' => 'Maksimal 11 digit',
                 'keterangan.required' => 'Data tidak boleh kosong, harap diisi'
             ]
         );
@@ -117,14 +119,16 @@ class PembukuanController extends Controller
                 'nama' => 'required|max:30',
                 'tanggal' => 'required',
                 'jenis' => 'required',
-                'nominal' => 'required',
+                'nominal' => 'required|max:11|regex:/^[0-9]+$/',
                 'keterangan' => 'required',
             ],
             [
                 'nama.required' => 'Data tidak boleh kosong, harap diisi',
+                'nama.max' => 'Maksimal 30 karakter',
                 'tanggal.required' => 'Data tidak boleh kosong, harap diisi',
                 'jenis.required' => 'Data tidak boleh kosong, harap diisi',
                 'nominal.required' => 'Data tidak boleh kosong, harap diisi',
+                'nominal.max' => 'Maksimal 11 digit',
                 'keterangan.required' => 'Data tidak boleh kosong, harap diisi'
             ]
         );

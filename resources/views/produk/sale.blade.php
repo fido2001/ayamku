@@ -57,29 +57,33 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 col-12">
-                                <label>Jumlah Pemesanan</label>
-                                <input type="number" class="form-control" name="banyak_item">
-                                <div class="invalid-feedback">
-                                    Data tidak boleh kosong, harap diisi
-                                </div>
+                                <label>Banyak Item</label>
+                                <input type="number" min="1" step="1" class="form-control @error('banyak_item') is-invalid @enderror" name="banyak_item" placeholder="Dalam Kg">
+                                @error('banyak_item')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6 col-12">
                                 <label>Jenis Pengiriman</label>
                                 <small>(Minimum pembelian 100 Kg untuk pengiriman)</small>
                                 <select name="jenis_pengiriman" id="kandang" class="form-control @error('jenis_pengiriman') is-invalid @enderror">
                                     <option disabled selected>Pilih Salah Satu</option>
-                                    <option value="Ambil Sendiri">Ambil Sendiri</option>
+                                    <option value="Diambil ditempat">Diambil ditempat</option>
                                     <option value="Diantar">Diantar</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Data tidak boleh kosong, harap diisi
-                                </div>
+                                @error('jenis_pengiriman')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-right">
                     <a href="/distributor/produk/{{ $produk->id }}" class="btn btn-warning">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Beli</button>
+                    <button type="submit" class="btn btn-primary">Selanjutnya</button>
                     </div>
                 </form>
             </div>

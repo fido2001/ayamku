@@ -21,14 +21,16 @@
     <div class="card-body">
         @foreach ($dataOrder as $order)
             <h5 class="card-title">Detail Pemesanan {{ $order->nama_produk }}</h5>
-            <h6 class="card-text">Total Harga : {{ $order->nominal }}</h5>
-            <h6 class="card-text">Atas Nama : {{ $order->atas_nama }}</h6>
-            <h6 class="card-text">Alamat Distributor : {{ $order->alamat }}</h6>
+            <h6 class="card-text">Nama Pembeli : {{ $order->atas_nama }}</h6>
+            <h6 class="card-text">Alamat Pembeli : {{ $order->alamat }}</h6>
+            <h6 class="card-text">Nomor HP Pembeli : {{ $order->noHp }}</h6>
             @if ($order->nama_produk == 'Telur')
-            <h6 class="card-text">Jumlah Pemesanan : {{ $order->banyak_item }} Kg</h5>
+            <h6 class="card-text">Banyak Item : {{ $order->banyak_item }} Kg</h5>
             @else
-            <h6 class="card-text">Jumlah Pemesanan : {{ $order->banyak_item }} Ekor</h5>
+            <h6 class="card-text">Banyak Item : {{ $order->banyak_item }} Ekor</h5>
             @endif
+            <h6 class="card-text">Total Harga : Rp. {{ $order->nominal }}</h6>
+            <h6 class="card-text">Status Pembayaran : {{ $order->status_order }}</h6>
             @if ($order->bukti != null && $order->status_order == 'Verifikasi Berhasil')
             <h6 class="card-text">Bukti Pembayaran : </h6>
             <div class="gallery">

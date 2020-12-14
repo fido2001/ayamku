@@ -83,7 +83,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('produk.store') }}" method="POST">
+                    <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -132,11 +132,22 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="nama_produk">Kategori Produk</label>
-                                        <select name="nama_produk" class="form-control" id="nama_produk">
+                                        <select name="nama_produk" class="form-control @error('nama_produk') is-invalid @enderror" id="nama_produk">
                                             <option value="Telur">Telur</option>
                                             <option value="Avkir">Avkir</option>              
                                         </select>
                                         @error('nama_produk')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="gambar">Gambar Produk</label>
+                                        <input type="file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" id="exampleFormControlFile1">
+                                        @error('gambar')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

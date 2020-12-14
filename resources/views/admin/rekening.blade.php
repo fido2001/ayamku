@@ -4,10 +4,10 @@
 <div class="section-body">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Data Vitamin</h4>
+            <h4>Data Rekening</h4>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Tambah Data Vitamin
+                Tambah Data Rekening
             </button>
         </div>
         @if (session('success'))
@@ -27,23 +27,23 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Jenis Vitamin</th>
-                    <th scope="col">Takaran</th>
-                    <th scope="col">Khasiat</th>
+                    <th scope="col">Nama Bank</th>
+                    <th scope="col">Nama Pemilik</th>
+                    <th scope="col">Nomor Rekening</th>
                     <th scope="col" class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($dataVitamin as $no => $vitamin)
+                @foreach ($dataRekening as $no => $rekening)
                     <tr>
                         <th scope="row">{{ $no+1 }}</th>
-                        <td>{{ $vitamin->jenis_vitamin }}</td>
-                        <td>{{ $vitamin->takaran }}</td>
-                        <td>{{ Str::limit($vitamin->khasiat, 90) }}</td>
+                        <td>{{ $rekening->nama_bank }}</td>
+                        <td>{{ $rekening->nama_pemilik }}</td>
+                        <td>{{ $rekening->no_rekening }}</td>
                         <td class="text-center">
-                            <a href="{{ route('vitamin.edit', $vitamin->id) }}" class="badge badge-info btn-edit">Edit</a>
-                            <a href="#" data-id="{{ $vitamin->id }}" class="badge badge-danger swal-confirm">
-                                <form action="{{ route('vitamin.destroy', $vitamin->id) }}" id="delete{{ $vitamin->id }}" method="POST">
+                            <a href="{{ route('rekening.edit', $rekening->id) }}" class="badge badge-info btn-edit">Edit</a>
+                            <a href="#" data-id="{{ $rekening->id }}" class="badge badge-danger swal-confirm">
+                                <form action="{{ route('rekening.destroy', $rekening->id) }}" id="delete{{ $rekening->id }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 </form>
@@ -58,27 +58,25 @@
     </div>
 </div>
     @section('modal')
-        <!-- Modal Tambah Data Vitamin-->
+        <!-- Modal Tambah Data Rekening-->
         <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Vitamin</h5>
+                        <h5 class="modal-title">Tambah Data Rekening</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('vitamin.store') }}" method="POST">
+                    <form action="{{ route('rekening.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>
-                                            Jenis Vitamin
-                                        </label>
-                                        <input type="text" name="jenis_vitamin" value="{{ old('jenis_vitamin') }}" class="form-control @error('jenis_vitamin') is-invalid @enderror" autocomplete="off">
-                                        @error('jenis_vitamin')
+                                        <label>Nama Bank</label>
+                                        <input type="text" name="nama_bank" value="{{ old('nama_bank') }}" class="form-control @error('nama_bank') is-invalid @enderror" autocomplete="off">
+                                        @error('nama_bank')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -87,11 +85,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>
-                                            Takaran
-                                        </label>
-                                        <input type="text" name="takaran" value="{{ old('takaran') }}" class="form-control @error('takaran') is-invalid @enderror" autocomplete="off">
-                                        @error('takaran')
+                                        <label>Nama Pemilik</label>
+                                        <input type="text" name="nama_pemilik" value="{{ old('nama_pemilik') }}" class="form-control @error('nama_pemilik') is-invalid @enderror" autocomplete="off">
+                                        @error('nama_pemilik')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -100,11 +96,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>
-                                            Khasiat
-                                        </label>
-                                        <textarea name="khasiat" class="form-control @error('khasiat') is-invalid @enderror" id="" cols="30" rows="10">{{ old('khasiat') }}</textarea>
-                                        @error('khasiat')
+                                        <label>Nomor Rekening</label>
+                                        <input type="text" name="no_rekening" value="{{ old('no_rekening') }}" class="form-control @error('no_rekening') is-invalid @enderror" autocomplete="off">
+                                        @error('no_rekening')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
