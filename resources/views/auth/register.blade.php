@@ -33,7 +33,7 @@ gtag('config', 'UA-94034622-3');
                 <div class="row">
                     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="login-brand">
-                            <img src="{{ asset('../assets/img/stisla-fill.svg') }}" alt="logo" width="100">
+                            <img src="{{ asset('../assets/img/Logo.jpg') }}" alt="logo" width="200">
                         </div>
 
                         <div class="card card-primary">

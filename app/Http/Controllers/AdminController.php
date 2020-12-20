@@ -47,7 +47,7 @@ class AdminController extends Controller
     {
         request()->validate(
             [
-                'username' => ['required', 'alpha_num', 'max:30'],
+                'username' => ['required', 'alpha_num', 'max:30', 'unique:users'],
                 'noHp' => ['required', 'string', 'max:13', 'min:10', 'regex:/^(08)[0-9]*/'],
                 'alamat' => ['required'],
                 'name' => ['required', 'string', 'max:30'],

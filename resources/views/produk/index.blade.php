@@ -89,7 +89,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="progress">Data Progress Detail</label>
+                                        <label for="progress">Data Panen Parsial</label>
                                         <select name="id_progress_detail" id="progress" class="form-control @error('id_progress_detail') is-invalid @enderror">
                                             <option disabled selected>Pilih Salah Satu</option>
                                             @foreach ($dataProgress as $progress)

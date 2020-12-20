@@ -137,7 +137,7 @@
                                         <label>
                                             Jumlah Koloni
                                         </label>
-                                        <input type="number" name="jumlah_koloni" value="{{ old('jumlah_koloni') }}" class="form-control @error('jumlah_koloni') is-invalid @enderror" autocomplete="off">
+                                        <input type="number" min="1" step="1" name="jumlah_koloni" value="{{ old('jumlah_koloni') }}" class="form-control @error('jumlah_koloni') is-invalid @enderror" autocomplete="off">
                                         @error('jumlah_koloni')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

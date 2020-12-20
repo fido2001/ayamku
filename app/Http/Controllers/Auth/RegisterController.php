@@ -33,7 +33,7 @@ class RegisterController extends Controller
             $data,
             [
                 'name' => ['required', 'string', 'max:30'],
-                'username' => ['required', 'alpha_num', 'max:30'],
+                'username' => ['required', 'alpha_num', 'max:30', 'unique:users'],
                 'noHp' => ['required', 'regex:/^(08)[0-9]*/', 'max:13', 'min:10'],
                 'alamat' => ['required', 'max:100'],
                 'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],

@@ -10,7 +10,7 @@
 <div class="section-body">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>Data Progress</h4>
+            <h4>Data Pembukuan</h4>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 + Tambah
             </button>

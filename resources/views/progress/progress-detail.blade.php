@@ -142,8 +142,8 @@
                                 @if ($dtProgress->kategori == 'Produksi')
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="lebar">
-                                            Banyak Telur 
+                                        <label for="banyak_telur">
+                                            Banyak Telur <small>(Dalam Butir)</small>
                                         </label>
                                         <input type="number" min="1" step="1" id="banyak_telur" name="banyak_telur" value="{{ old('banyak_telur') }}" class="form-control @error('banyak_telur') is-invalid @enderror" autocomplete="off">
                                         @error('banyak_telur')

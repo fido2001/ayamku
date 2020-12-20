@@ -16,13 +16,9 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $user_id = auth()->user()->id;
-
         $produk = DB::table('produk as pr')->join('progress_detail as prdt', 'pr.id_progress_detail', '=', 'prdt.id')->select('pr.*', 'prdt.tgl_progress', 'prdt.banyak_telur')->get();
         // dd($produk);
         $progress = ProgressDetail::get();
-
-        // dd($progress);
 
         return view('produk.index', [
             'dataProduk' => $produk,

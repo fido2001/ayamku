@@ -35,6 +35,7 @@
                                 <th class="text-center">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Username</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Nomor HP</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col">Aksi</th>
@@ -46,6 +47,7 @@
                                     <th scope="row" class="text-center">{{ $no+1 }}</th>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->username }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>{{ $user->noHp  }}</td>
                                     <td>{{ $user->alamat  }}</td>
                                     <td><a href="#" data-id="{{ $user->id }}" class="badge badge-danger swal-confirm">

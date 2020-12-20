@@ -19,7 +19,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-2"></div>
                     <div class="form-group col-md-8 col-12">
                         <label>Tanggal</label>
@@ -30,7 +30,7 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="form-group col-md-8 col-12">

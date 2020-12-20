@@ -39,9 +39,9 @@ class KandangController extends Controller
         request()->validate(
             [
                 'nama_kandang' => ['required'],
-                'panjang' => ['required', 'integer', 'between:1,999'],
-                'lebar' => ['required', 'integer', 'between:1,999'],
-                'jumlah_koloni' => ['required', 'integer', 'between:1,99999']
+                'panjang' => ['required'],
+                'lebar' => ['required'],
+                'jumlah_koloni' => ['required']
             ],
             [
                 'nama_kandang.required' => 'Data tidak boleh kosong, harap diisi!',
